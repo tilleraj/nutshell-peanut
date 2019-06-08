@@ -7,6 +7,7 @@ import '../styles/main.scss';
 import apiKeys from './helpers/apiKeys.json';
 import eventsPage from './components/events/events';
 import diaryPage from './components/entries/entries';
+import messagesPage from './components/messages/messages';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -15,6 +16,7 @@ const init = () => {
   auth.authStringBuilder();
   eventsPage.eventPageButtonHandlers();
   diaryPage.entryPageButtonHandlers();
+  messagesPage.messagePageButtonHandlers();
 };
 
 init();

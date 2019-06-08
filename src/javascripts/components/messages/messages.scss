@@ -1,0 +1,15 @@
+body {
+  justify-content: center;
+  margin: auto;
+}
+
+#messageBoard {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  border-radius: 10px;
+  width: 60%;
+  margin: auto;
+  margin-top: 15px;
+  align-self: center;
+}
