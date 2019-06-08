@@ -9,7 +9,7 @@ import 'bootstrap';
 import '../styles/main.scss';
 
 const init = () => {
-  firebase.initializeApp(apiKeys.firebaseKeys);
+  firebase.initializeApp(apiKeys.firebaseConfig);
   navbar.navbarEvents();
   authData.checkLoginStatus();
   auth.authStringBuilder();
