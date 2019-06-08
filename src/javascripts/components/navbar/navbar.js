@@ -12,6 +12,10 @@ const navbarEvents = () => {
     navLinks[i].addEventListener('click', (e) => {
       if (e.target.id === 'logout-nav-button') {
         firebase.auth().signOut();
+        messagesPage.classList.add('hide');
+        newsPage.classList.add('hide');
+        eventsPage.classList.add('hide');
+        diaryPage.classList.add('hide');
       } else if (e.target.id === 'messages-nav-button') {
         messagesPage.classList.remove('hide');
         newsPage.classList.add('hide');
