@@ -4,6 +4,7 @@
 import $ from 'jquery';
 import util from '../../helpers/util';
 import eventsData from '../../helpers/data/eventsData';
+import './events.scss';
 
 const moment = require('moment');
 
@@ -25,14 +26,22 @@ const showEventPage = () => {
   domstring += '<span aria-hidden="true">&times;</span>';
   domstring += '</button>';
   domstring += '</div>';
-  domstring += '<form>';
+  domstring += '<form id="events-new-form">';
   domstring += '<div class="modal-body">';
+  domstring += '<div class="form-group">';
   domstring += '<label for="event-name">Event Name:</label>';
-  domstring += '<input type="text" id="event-name" name="event-name" required></input>';
-  domstring += '<label for="event-date">Event Date:</label>';
+  domstring += '<input type="text" class="form-control" id="event-name" name="event-name" placeholder="Party Party Party" required></input>';
+  domstring += '</div>';
+  domstring += '<div id="events-date-input" class="form-row">';
+  domstring += '<div class="form-group justify-content-center col-md-6">';
+  domstring += '<label class="col-md-12" for="event-date">Event Date: </label>';
   domstring += `<input type="date" id="event-date" name="event-date" value="${today}" min="${today}" max="${moment(today).add(3, 'y').format('YYYY[-]MM[-]DD')}" required>`;
-  domstring += '<label for="event-time">Time:</label>';
-  domstring += '<input type="time" id="event-time" name="event-time" required></input>';
+  domstring += '</div>';
+  domstring += '<div class="form-group justify-content-center col-md-6">';
+  domstring += '<label class="col-md-12" for="event-time">Time: </label>';
+  domstring += '<input class="justify-self-center" type="time" id="event-time" name="event-time" value="16:20" required></input>';
+  domstring += '</div>';
+  domstring += '</div>';
   domstring += '</div>';
   domstring += '<div class="modal-footer">';
   domstring += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
