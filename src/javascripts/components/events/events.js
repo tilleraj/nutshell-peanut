@@ -3,6 +3,7 @@
 // import axios from 'axios';
 import $ from 'jquery';
 import util from '../../helpers/util';
+import eventsData from '../../helpers/data/eventsData';
 
 const moment = require('moment');
 
@@ -35,7 +36,7 @@ const showEventPage = () => {
   domstring += '</div>';
   domstring += '<div class="modal-footer">';
   domstring += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
-  domstring += '<button type="submit" id="submit-new-event" class="btn btn-primary">Save changes</button>';
+  domstring += '<button type="submit" id="submit-new-event" class="btn btn-primary" data-dismiss="modal">Save changes</button>';
   domstring += '</div>';
   domstring += '</form>';
   domstring += '</div>';
@@ -48,17 +49,19 @@ const showEventPage = () => {
 const addEventToDatabase = (e) => {
   e.preventDefault();
   e.stopPropagation();
+  // const uId = firebase.auth().currentUser.uid;
   const newEvent = {
     title: $('#event-name')[0].value,
     time: $('#event-time')[0].value,
+    date: $('#event-date')[0].value,
+    // uid: uId,
   };
-  console.error('new Date', $('#event-date')[0].value);
-  console.error('new TIme', $('#event-time')[0].value);
   console.error(newEvent);
+  eventsData.addEventToDatabase(newEvent);
 };
 
 const eventPageButtonHandlers = () => {
-  $('#event-button').on('click', showEventPage);
+  $('#events-nav-button').on('click', showEventPage);
   $('#events-page').on('click', '#submit-new-event', addEventToDatabase);
 };
 
