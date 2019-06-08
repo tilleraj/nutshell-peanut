@@ -7,9 +7,15 @@ import './events.scss';
 
 const moment = require('moment');
 
+const eventPageDomStringBuilder = (uid) => {
+  console.error(uid);
+};
+
 const showEventPage = () => {
+  const uId = firebase.auth().currentUser.uid;
   $('#events-page').removeClass('hide');
   $('#event-button').addClass('hide');
+  eventPageDomStringBuilder(uId);
   const today = moment().format('YYYY[-]MM[-]DD');
   let domstring = '<button id="add-event-button" class="btn btn-success" data-toggle="modal" data-target="#addAnEventModal">Add Event</button>';
   domstring += '<div class="modal fade" id="addAnEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
