@@ -14,10 +14,10 @@ const messagesBuilder = () => {
       domString += '<div id="messageBoard">';
       entriesArray.forEach((message) => {
         domString += '<div class="col-12 text-center">';
-        domString += `<div id="${message.id}" class="card mb-2">`;
-        domString += `<p>${message.uid}</p>`;
-        domString += `<p>${message.message}</p>`;
-        domString += `<p>${message.timestamp}</p>`;
+        domString += `<div id="${message.id}">`;
+        // domString += `<p>${message.uid}</p>`;
+        domString += `<p class="message from-me">${message.message}</p>`;
+        // domString += `<p>${message.timestamp}</p>`;
         domString += '</div>';
         domString += '</div>';
       });
