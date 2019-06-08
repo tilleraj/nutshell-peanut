@@ -10,25 +10,34 @@ const moment = require('moment');
 const eventPageDomStringBuilder = (uid) => {
   eventsData.retrieveEventsByUserId(uid)
     .then((events) => {
+      const eventsToSort = events;
+      eventsToSort.sort((a, b) => {
+        // eslint-disable-next-line no-param-reassign
+        a = new Date(a.dateTime);
+        // eslint-disable-next-line no-param-reassign
+        b = new Date(b.dateTime);
+        // eslint-disable-next-line no-nested-ternary
+        return a < b ? -1 : a > b ? 1 : 0;
+      });
       let domstring = '';
-      domstring += '<table>';
+      domstring += '<table id="events-table">';
       domstring += '<thead>';
       domstring += '<tr>';
       domstring += '<th colspan="4">Events</th>';
       domstring += '</tr>';
       domstring += '</thead>';
       domstring += '<tbody>';
-      domstring += '<tr>';
-      events.forEach((event) => {
-        const displayDate = moment(event.date, 'YYYY[-]MM[-]DD').format('MMMM Do[,] YYYY');
-        const displayTime = moment(event.time, 'HH[:]mm').format('h[:]mm a');
+      eventsToSort.forEach((event) => {
+        const displayDate = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY');
+        const displayTime = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('h[:]mm a');
+        domstring += '<tr>';
         domstring += `<td>${event.title}</td>`;
         domstring += `<td>${displayDate}</td>`;
         domstring += `<td>${displayTime}</td>`;
-        domstring += `<td><button type="button" id="${event.id}_edit" class="btn btn-info event-edit-button">Edit</button>`;
+        domstring += `<td><button type="button" id="${event.id}_edit" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
         domstring += `<button type="button" id="${event.id}_delete" class="btn btn-danger event-delete-button">X</button></td>`;
+        domstring += '</tr>';
       });
-      domstring += '</tr>';
       domstring += '</tbody>';
       domstring += '</table>';
       util.printToDom('events-list', domstring);
@@ -84,13 +93,20 @@ const addEventToDatabase = (e) => {
   e.preventDefault();
   e.stopPropagation();
   const uId = firebase.auth().currentUser.uid;
+  const newDateTime = `${$('#event-date')[0].value}T${$('#event-time')[0].value}`;
   const newEvent = {
     title: $('#event-name')[0].value,
-    time: $('#event-time')[0].value,
-    date: $('#event-date')[0].value,
+    dateTime: newDateTime,
     uid: uId,
   };
-  eventsData.addEventToDatabase(newEvent);
+  eventsData.addEventToDatabase(newEvent)
+    .then(() => {
+      eventPageDomStringBuilder(uId);
+      $('#event-name')[0].value = '';
+      $('#event-time')[0].value = '16:20';
+      $('#event-date')[0].value = moment().format('YYYY[-]MM[-]DD');
+    })
+    .catch(err => console.error('wont add event', err));
 };
 
 const eventPageButtonHandlers = () => {
