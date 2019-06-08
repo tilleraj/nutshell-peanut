@@ -6,6 +6,7 @@ import 'bootstrap';
 import '../styles/main.scss';
 import apiKeys from './helpers/apiKeys.json';
 import eventsPage from './components/events/events';
+import diaryPage from './components/entries/entries';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -13,6 +14,7 @@ const init = () => {
   authData.checkLoginStatus();
   auth.authStringBuilder();
   eventsPage.eventPageButtonHandlers();
+  diaryPage.entryPageButtonHandlers();
 };
 
 init();
