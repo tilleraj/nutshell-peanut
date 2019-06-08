@@ -13,6 +13,7 @@ const entriesBuilder = () => {
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
       let domString = '<div id="diary-container" class="container">';
+      domString += '<div id="newDiaryEntry" class="row d-flex justify-content-center"></div>';
       domString += '<div class="row d-flex justify-content-center">';
       domString += '<button id="addNewEntryButton" class="btn btn-secondary mt-3 mb-3 col-4 col-md-3 col-lg-2">Add a New Entry</button>';
       domString += '</div>';
@@ -35,26 +36,28 @@ const entriesBuilder = () => {
 
 const addEntryToDOM = () => {
   let newEntry = '';
-  newEntry += '<div id="newDiaryEntry" class="row d-flex justify-content-center">';
   newEntry += '<div class="col-12 col-md-10 col-lg-8 text-center">';
-  newEntry += '<div class="card mb-2">';
+  newEntry += '<div class="card mb-4">';
   newEntry += '<h2 id="newDiaryTitle" class="editable" contenteditable="true">Entry Title</h2>';
   newEntry += '<h4 class="editable" contenteditable="true">Entry Date</h4>';
   newEntry += '<p class="editable" contenteditable="true">Write Your Entry Here</p>';
   newEntry += '<div class="d-flex justify-content-end">';
-  newEntry += '<button class="btn btn-primary col-2">Save</button>';
-  newEntry += '<button class="btn btn-danger col-2">Cancel</button>';
+  newEntry += '<button id="addNewEntry" class="btn btn-primary col-2">Save</button>';
+  newEntry += '<button id="cancelNewEntry" class="btn btn-danger col-2">Cancel</button>';
   newEntry += '</div>';
   newEntry += '</div>';
   newEntry += '</div>';
   newEntry += '</div>';
-  util.printToDom('diary-page', newEntry);
+  util.printToDom('newDiaryEntry', newEntry);
   document.getElementById('newDiaryTitle').focus();
+  $('#addNewEntryButton').addClass('hide');
 };
 
 const entryPageButtonHandlers = () => {
   document.getElementById('diary-nav-button').addEventListener('click', entriesBuilder);
   $('body').on('click', '#addNewEntryButton', addEntryToDOM);
+  $('body').on('click', '#cancelNewEntry', entriesBuilder);
+  // $('body').on('click', '#addNewEntry', addEntryToDatabase);
 };
 
 export default { entryPageButtonHandlers };
