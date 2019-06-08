@@ -30,7 +30,7 @@ const drawDashbaord = () => {
   let domString = '';
   domString += '<div class="container mt-4">';
   domString += '<div class="row">';
-  domString += '  <div class="d-flex justify-content-around flex-wrap col-12 col-sm-10 offset-sm-1">';
+  domString += '  <div class="d-flex justify-content-around flex-wrap col-12 col-sm-10 offset-sm-1" id="dashboard-cards">';
   domString += '    <div class="card" id="eventsCard">';
   domString += '      <div class="dashboard-img-contain">';
   domString += '        <a class="dashboard-link" href="#">';
