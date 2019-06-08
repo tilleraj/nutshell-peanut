@@ -7,8 +7,9 @@ import util from '../../helpers/util';
 import entriesData from '../../helpers/data/entriesData';
 
 const entriesBuilder = () => {
-  // $('#diary-page').removeClass('hide');
-  // $('#diary-nav-button').addClass('hide');
+  // below jquery selectors will be removed after testing branch
+  $('#diary-page').removeClass('hide');
+  $('#diary-nav-button').addClass('hide');
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
       let domString = '';
