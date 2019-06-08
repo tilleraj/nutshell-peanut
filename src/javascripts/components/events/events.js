@@ -1,16 +1,11 @@
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
-// import axios from 'axios';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import $ from 'jquery';
 import util from '../../helpers/util';
 import eventsData from '../../helpers/data/eventsData';
 import './events.scss';
 
 const moment = require('moment');
-
-// import apiKeys from '../../helpers/apiKeys.json';
-
-// const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const showEventPage = () => {
   $('#events-page').removeClass('hide');
@@ -58,12 +53,12 @@ const showEventPage = () => {
 const addEventToDatabase = (e) => {
   e.preventDefault();
   e.stopPropagation();
-  // const uId = firebase.auth().currentUser.uid;
+  const uId = firebase.auth().currentUser.uid;
   const newEvent = {
     title: $('#event-name')[0].value,
     time: $('#event-time')[0].value,
     date: $('#event-date')[0].value,
-    // uid: uId,
+    uid: uId,
   };
   console.error(newEvent);
   eventsData.addEventToDatabase(newEvent);
