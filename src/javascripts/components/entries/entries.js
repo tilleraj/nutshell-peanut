@@ -13,6 +13,7 @@ const entriesBuilder = () => {
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
       let domString = '';
+      domString += '<div class="container">';
       entriesArray.forEach((entry) => {
         domString += '<div class="row d-flex justify-content-center">';
         domString += '<div class="col-12 col-md-10 col-lg-8 text-center">';
@@ -24,6 +25,7 @@ const entriesBuilder = () => {
         domString += '</div>';
         domString += '</div>';
       });
+      domString += '</div>';
       util.printToDom('diary-page', domString);
     })
     .catch(err => console.error(err, 'pal your crap is broken'));
