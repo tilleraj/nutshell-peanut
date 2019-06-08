@@ -34,7 +34,7 @@ const eventPageDomStringBuilder = (uid) => {
         domstring += `<td>${event.title}</td>`;
         domstring += `<td>${displayDate}</td>`;
         domstring += `<td>${displayTime}</td>`;
-        domstring += `<td><button type="button" id="edit_${event.id}" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
+        domstring += `<td><button type="button" id="edit_${event.id}" data-toggle="modal" data-target="#editAnEventModal" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
         domstring += `<button type="button" id="delete_${event.id}" class="btn btn-danger event-delete-button">X</button></td>`;
         domstring += '</tr>';
       });
@@ -51,11 +51,11 @@ const showEventPage = () => {
   eventPageDomStringBuilder(uId);
   const today = moment().format('YYYY[-]MM[-]DD');
   let domstring = '<button id="add-event-button" class="btn btn-success" data-toggle="modal" data-target="#addAnEventModal">Add Event</button>';
-  domstring += '<div class="modal fade" id="addAnEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+  domstring += '<div class="modal fade" id="addAnEventModal" tabindex="-1" role="dialog" aria-labelledby="addAnEventModalLabel" aria-hidden="true">';
   domstring += '<div class="modal-dialog" role="document">';
   domstring += '<div class="modal-content">';
   domstring += '<div class="modal-header">';
-  domstring += '<h5 class="modal-title" id="addEventModalLabel">Add an Event</h5>';
+  domstring += '<h5 class="modal-title" id="addAnEventModalLabel">Add an Event</h5>';
   domstring += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
   domstring += '<span aria-hidden="true">&times;</span>';
   domstring += '</button>';
@@ -85,8 +85,68 @@ const showEventPage = () => {
   domstring += '</div>';
   domstring += '</div>';
   domstring += '</div>';
+
+  domstring += '<div class="modal fade" id="editAnEventModal" tabindex="-1" role="dialog" aria-labelledby="editAnEventModalLabel" aria-hidden="true">';
+  domstring += '<div class="modal-dialog" role="document">';
+  domstring += '<div class="modal-content">';
+  domstring += '<div class="modal-header">';
+  domstring += '<h5 class="modal-title" id="editAnEventModalLabel">Edit an Event</h5>';
+  domstring += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+  domstring += '<span aria-hidden="true">&times;</span>';
+  domstring += '</button>';
+  domstring += '</div>';
+  domstring += '<form id="events-edit-form">';
+  domstring += '<div id="edit-modal-body" class="modal-body">';
+  domstring += '</div>';
+  domstring += '<div class="modal-footer">';
+  domstring += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+  domstring += '<button type="submit" id="event-edit-button" class="btn btn-primary" data-dismiss="modal">Save changes</button>';
+  domstring += '</div>';
+  domstring += '</form>';
+  domstring += '</div>';
+  domstring += '</div>';
+  domstring += '</div>';
   domstring += '<div id="events-list"></div>';
   util.printToDom('events-page', domstring);
+};
+
+const printEditModal = (e) => {
+  const uId = firebase.auth().currentUser.uid;
+  const eventId = e.target.id.split(/_(.+)/)[1];
+  eventsData.retrieveEventsByUserId(uId)
+    .then((eventsToFilter) => {
+      const eventToEdit = eventsToFilter.filter(event => event.id === eventId);
+      const today = moment().format('YYYY[-]MM[-]DD');
+      const date = moment(eventToEdit[0].dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('YYYY[-]MM[-]DD');
+      const time = moment(eventToEdit[0].dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('HH[:]mm');
+      let domstring = '';
+      domstring += '<div class="modal fade" id="editAnEventModal" tabindex="-1" role="dialog" aria-labelledby="editAnEventModalLabel" aria-hidden="true">';
+      domstring += '<div class="modal-dialog" role="document">';
+      domstring += '<div class="modal-content">';
+      domstring += '<div class="modal-header">';
+      domstring += '<h5 class="modal-title" id="editAnEventModalLabel">Edit an Event</h5>';
+      domstring += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+      domstring += '<span aria-hidden="true">&times;</span>';
+      domstring += '</button>';
+      domstring += '</div>';
+      domstring += '<form id="events-edit-form">';
+      domstring += '<div id="edit-modal-body" class="modal-body">';
+      domstring += '<div class="form-group">';
+      domstring += '<label for="event-edit-name">Event Name:</label>';
+      domstring += `<input type="text" class="form-control" id="event-edit-name" name="event-edit-name" placeholder="${eventToEdit.title}" required></input>`;
+      domstring += '</div>';
+      domstring += '<div id="events-date-input" class="form-row">';
+      domstring += '<div class="form-group justify-content-center col-md-6">';
+      domstring += '<label class="col-md-12" for="event-edit-date">Event Date: </label>';
+      domstring += `<input type="date" id="event-edit-date" name="event-edit-date" value="${date}" min="${today}" max="${moment(today).add(3, 'y').format('YYYY[-]MM[-]DD')}" required>`;
+      domstring += '</div>';
+      domstring += '<div class="form-group justify-content-center col-md-6">';
+      domstring += '<label class="col-md-12" for="event-edit-time">Time: </label>';
+      domstring += `<input class="justify-self-center" type="time" id="event-edit-time" name="event-edit-time" value="${time}" required></input>`;
+      domstring += '</div>';
+      domstring += '</div>';
+      util.printToDom('edit-modal-body', domstring);
+    }).catch(err => console.error('no edit modal', err));
 };
 
 const addEventToDatabase = (e) => {
@@ -137,7 +197,8 @@ const eventPageButtonHandlers = () => {
   $('#events-nav-button').on('click', showEventPage);
   $('#events-page').on('click', '#submit-new-event', addEventToDatabase);
   $('#events-page').on('click', '.event-delete-button', deleteEventFromDatabase);
-  $('#events-page').on('click', '.event-edit-button', editEventFromDatabase);
+  $('#events-page').on('click', '.event-edit-button', printEditModal);
+  $('#events-page').on('click', '#event-edit-button', editEventFromDatabase);
 };
 
 export default { eventPageButtonHandlers };
