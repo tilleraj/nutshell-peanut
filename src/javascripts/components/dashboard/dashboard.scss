@@ -1,0 +1,34 @@
+.dashboard-img {
+  max-height: 150px;
+  width: auto;
+  padding-top: 1em;
+}
+
+.dashboard-img-contain {
+  text-align: center;
+}
+
+/* Small Screens */
+.card {
+  width: 275px;
+  margin-bottom: 2rem;
+  max-width: 100%;
+}
+
+/* Medium screens */
+@media all and (min-width: 576px) {
+  .card {
+    width: 45%;
+    margin-bottom: 2rem;
+    max-width: 100%;
+  }
+}
+
+/* Large screens */
+@media all and (min-width: 768px) {
+  .card {
+    width: 35%;
+    margin-bottom: 2rem;
+    max-width: 100%;
+  }
+}
