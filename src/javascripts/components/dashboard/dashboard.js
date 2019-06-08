@@ -2,9 +2,31 @@ import './dashboard.scss';
 import $ from 'jquery';
 import util from '../../helpers/util';
 
+const dashBoardPage = $('#dashboard-page');
+const messagesPage = $('#messages-page');
+const newsPage = $('#news-page');
+const eventsPage = $('#events-page');
+const diaryPage = $('#diary-page');
+
 const eventListeners = () => {
   $('.dashboard-link').click((e) => {
-    console.error(e.target.closest('.card').id);
+    if (e.target.closest('.card').id === 'eventsCard') {
+      console.error('events');
+      dashBoardPage.addClass('hide');
+      eventsPage.removeClass('hide');
+    } else if (e.target.closest('.card').id === 'messagesCard') {
+      console.error('messages');
+      dashBoardPage.addClass('hide');
+      messagesPage.removeClass('hide');
+    } else if (e.target.closest('.card').id === 'diaryCard') {
+      console.error('diary');
+      dashBoardPage.addClass('hide');
+      diaryPage.removeClass('hide');
+    } else if (e.target.closest('.card').id === 'newsCard') {
+      console.error('news');
+      dashBoardPage.addClass('hide');
+      newsPage.removeClass('hide');
+    }
   });
 };
 
@@ -64,7 +86,7 @@ const drawDashbaord = () => {
   domString += '  </div>';
   domString += '</div>';
   domString += '</div>';
-  util.printToDom('dashboard-div', domString);
+  util.printToDom('dashboard-page', domString);
   eventListeners();
 };
 
