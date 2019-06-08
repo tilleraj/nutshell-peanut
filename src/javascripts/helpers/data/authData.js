@@ -1,8 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import dashboard from '../../components/dashboard/dashboard';
 
 const authDiv = document.getElementById('auth-div');
 const allPagesDiv = document.getElementById('all-pages');
+const dashboardPage = document.getElementById('dashboard-page');
+const dashboardNavButton = document.getElementById('dashboard-nav-button');
 const eventsNavButton = document.getElementById('events-nav-button');
 const messagesNavButton = document.getElementById('messages-nav-button');
 const diaryNavButton = document.getElementById('diary-nav-button');
@@ -15,6 +18,9 @@ const checkLoginStatus = () => {
     if (user) {
       allPagesDiv.classList.remove('hide');
       authDiv.classList.add('hide');
+      dashboardPage.classList.remove('hide');
+      dashboard.drawDashbaord();
+      dashboardNavButton.classList.remove('hide');
       eventsNavButton.classList.remove('hide');
       diaryNavButton.classList.remove('hide');
       messagesNavButton.classList.remove('hide');
@@ -23,6 +29,8 @@ const checkLoginStatus = () => {
     } else {
       // If user is logged out, login button and authorization button are shown, everything else is hidden
       authDiv.classList.remove('hide');
+      dashboardPage.classList.add('hide');
+      dashboardNavButton.classList.add('hide');
       eventsNavButton.classList.add('hide');
       diaryNavButton.classList.add('hide');
       messagesNavButton.classList.add('hide');

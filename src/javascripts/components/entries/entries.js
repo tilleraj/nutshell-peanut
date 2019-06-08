@@ -12,7 +12,8 @@ const entriesBuilder = () => {
   // $('#diary-nav-button').addClass('hide');
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
-      let domString = '<div class="row d-flex justify-content-center">';
+      let domString = '<div id="diary-container" class="container">';
+      domString += '<div class="row d-flex justify-content-center">';
       domString += '<button id="addNewEntryButton" class="btn btn-secondary mt-3 mb-3 col-4 col-md-3 col-lg-2">Add a New Entry</button>';
       domString += '</div>';
       entriesArray.forEach((entry) => {
@@ -26,6 +27,7 @@ const entriesBuilder = () => {
         domString += '</div>';
         domString += '</div>';
       });
+      domString += '</div>';
       util.printToDom('diary-page', domString);
     })
     .catch(err => console.error(err, 'pal your crap is broken'));
@@ -33,16 +35,21 @@ const entriesBuilder = () => {
 
 const addEntryToDOM = () => {
   let newEntry = '';
-  newEntry += '<div class="row d-flex justify-content-center">';
+  newEntry += '<div id="newDiaryEntry" class="row d-flex justify-content-center">';
   newEntry += '<div class="col-12 col-md-10 col-lg-8 text-center">';
   newEntry += '<div class="card mb-2">';
-  newEntry += '<h2 class="editable">header</h2>';
-  newEntry += '<h4 class="editable">header</h4>';
-  newEntry += '<p class="editable">paragraph</p>';
+  newEntry += '<h2 id="newDiaryTitle" class="editable" contenteditable="true">Entry Title</h2>';
+  newEntry += '<h4 class="editable" contenteditable="true">Entry Date</h4>';
+  newEntry += '<p class="editable" contenteditable="true">Write Your Entry Here</p>';
+  newEntry += '<div class="d-flex justify-content-end">';
+  newEntry += '<button class="btn btn-primary col-2">Save</button>';
+  newEntry += '<button class="btn btn-danger col-2">Cancel</button>';
+  newEntry += '</div>';
   newEntry += '</div>';
   newEntry += '</div>';
   newEntry += '</div>';
   util.printToDom('diary-page', newEntry);
+  document.getElementById('newDiaryTitle').focus();
 };
 
 const entryPageButtonHandlers = () => {
