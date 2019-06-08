@@ -4,7 +4,6 @@ import apiKeys from '../apiKeys.json';
 
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
-// this is the original movie array
 const getEntries = uid => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/entry.json?orderBy="uid"&equalTo="${uid}"`)
     .then((resp) => {
@@ -19,4 +18,6 @@ const getEntries = uid => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { getEntries };
+const addEntryToDatabase = entryObj => axios.post(`${firebaseUrl}/entry.json`, entryObj);
+
+export default { getEntries, addEntryToDatabase };

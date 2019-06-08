@@ -53,6 +53,11 @@ const addEntryToDOM = () => {
   $('#addNewEntryButton').addClass('hide');
 };
 
+// Start here you are getting ready to build object so you can add new diary to database
+// const addEntryToDatabase = () => {
+
+// };
+
 const entryPageButtonHandlers = () => {
   document.getElementById('diary-nav-button').addEventListener('click', entriesBuilder);
   $('body').on('click', '#addNewEntryButton', addEntryToDOM);
