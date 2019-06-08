@@ -8,13 +8,37 @@ import './events.scss';
 const moment = require('moment');
 
 const eventPageDomStringBuilder = (uid) => {
-  console.error(uid);
+  eventsData.retrieveEventsByUserId(uid)
+    .then((events) => {
+      let domstring = '';
+      domstring += '<table>';
+      domstring += '<thead>';
+      domstring += '<tr>';
+      domstring += '<th colspan="4">Events</th>';
+      domstring += '</tr>';
+      domstring += '</thead>';
+      domstring += '<tbody>';
+      domstring += '<tr>';
+      events.forEach((event) => {
+        const displayDate = moment(event.date, 'YYYY[-]MM[-]DD').format('MMMM Do[,] YYYY');
+        const displayTime = moment(event.time, 'HH[:]mm').format('h[:]mm a');
+        domstring += `<td>${event.title}</td>`;
+        domstring += `<td>${displayDate}</td>`;
+        domstring += `<td>${displayTime}</td>`;
+        domstring += `<td><button type="button" id="${event.id}_edit" class="btn btn-info event-edit-button">Edit</button>`;
+        domstring += `<button type="button" id="${event.id}_delete" class="btn btn-danger event-delete-button">X</button></td>`;
+      });
+      domstring += '</tr>';
+      domstring += '</tbody>';
+      domstring += '</table>';
+      util.printToDom('events-list', domstring);
+    }).catch(err => console.error('no events to show', err));
 };
 
 const showEventPage = () => {
   const uId = firebase.auth().currentUser.uid;
   $('#events-page').removeClass('hide');
-  $('#event-button').addClass('hide');
+  $('#events-nav-button').addClass('hide');
   eventPageDomStringBuilder(uId);
   const today = moment().format('YYYY[-]MM[-]DD');
   let domstring = '<button id="add-event-button" class="btn btn-success" data-toggle="modal" data-target="#addAnEventModal">Add Event</button>';
