@@ -34,8 +34,8 @@ const eventPageDomStringBuilder = (uid) => {
         domstring += `<td>${event.title}</td>`;
         domstring += `<td>${displayDate}</td>`;
         domstring += `<td>${displayTime}</td>`;
-        domstring += `<td><button type="button" id="${event.id}_edit" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
-        domstring += `<button type="button" id="${event.id}_delete" class="btn btn-danger event-delete-button">X</button></td>`;
+        domstring += `<td><button type="button" id="edit_${event.id}" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
+        domstring += `<button type="button" id="delete_${event.id}" class="btn btn-danger event-delete-button">X</button></td>`;
         domstring += '</tr>';
       });
       domstring += '</tbody>';
@@ -109,9 +109,20 @@ const addEventToDatabase = (e) => {
     .catch(err => console.error('wont add event', err));
 };
 
+const deleteEventFromDatabase = (e) => {
+  const userId = firebase.auth().currentUser.uid;
+  const eventId = e.target.id.split(/_(.+)/)[1];
+  eventsData.removeEventFromDatabaseByEventId(eventId)
+    .then(() => {
+      eventPageDomStringBuilder(userId);
+    })
+    .catch(err => console.error('problem deleting event', err));
+};
+
 const eventPageButtonHandlers = () => {
   $('#events-nav-button').on('click', showEventPage);
   $('#events-page').on('click', '#submit-new-event', addEventToDatabase);
+  $('#events-page').on('click', '.event-delete-button', deleteEventFromDatabase);
 };
 
 export default { eventPageButtonHandlers };
