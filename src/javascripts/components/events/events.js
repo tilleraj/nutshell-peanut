@@ -66,7 +66,6 @@ const addEventToDatabase = (e) => {
     date: $('#event-date')[0].value,
     uid: uId,
   };
-  console.error(newEvent);
   eventsData.addEventToDatabase(newEvent);
 };
 
