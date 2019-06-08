@@ -1,0 +1,18 @@
+{
+  "event1": {
+    "uid": "420blazeit",
+    "title": "Danksgiving",
+    "month": "Nov",
+    "day": "27th",
+    "year": 2019,
+    "time": "11:00am"
+  },
+  "event2": {
+    "uid": "420blazeit",
+    "title": "Danksgiving 2",
+    "month": "Nov",
+    "day": "26th",
+    "year": 2020,
+    "time": "11:30am"
+  }
+}
