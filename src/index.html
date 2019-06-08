@@ -9,59 +9,36 @@
 </head>
 
 <body>
-  <button class="btn btn-primary">hey pal</button>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-sm-10 offset-sm-1">
-        <div class="row">
-          <div class="col-12 col-md-6">
-            <div class="card">
-              <img class="img-fluid card-img-top" src="../assets/images/dashboard/diary.png" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="card">
-              <img class="img-fluid card-img-top" src="../assets/images/dashboard/diary.png" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="card">
-              <img class="img-fluid card-img-top" src="../assets/images/dashboard/diary.png" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="card">
-              <img class="img-fluid card-img-top" src="../assets/images/dashboard/diary.png" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a id="home-nav-button" class="navbar-brand" href="#">Nutshell</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a id="events-nav-button" class="nav-link hide">Events</a>
+          </li>
+          <li class="nav-item">
+            <a id="messages-nav-button" class="nav-link hide">Messages</a>
+          </li>
+          <li class="nav-item">
+            <a id="diary-nav-button" class="nav-link hide">Diary</a>
+          </li>
+          <li class="nav-item">
+            <a id="news-nav-button" class="nav-link hide">News</a>
+          </li>
+          <li class="nav-item">
+            <a id="logout-nav-button" class="nav-link hide">Logout</a>
+          </li>
+        </ul>
       </div>
-    </div>
+    </nav>
   </div>
+  <div id="auth-div"></div>
+  <div id="dashboard-div"></div>
 </body>
 
 </html>
