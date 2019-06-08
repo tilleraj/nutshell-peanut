@@ -119,10 +119,25 @@ const deleteEventFromDatabase = (e) => {
     .catch(err => console.error('problem deleting event', err));
 };
 
+const editEventFromDatabase = (e) => {
+  const userId = firebase.auth().currentUser.uid;
+  const eventId = e.target.id.split(/_(.+)/)[1];
+  const newEventObj = {
+    uid: userId,
+    dateTime: '',
+  };
+  eventsData.editEventOnDatabase(newEventObj, eventId)
+    .then(() => {
+      eventPageDomStringBuilder(userId);
+    })
+    .catch(err => console.error('problem editing event', err));
+};
+
 const eventPageButtonHandlers = () => {
   $('#events-nav-button').on('click', showEventPage);
   $('#events-page').on('click', '#submit-new-event', addEventToDatabase);
   $('#events-page').on('click', '.event-delete-button', deleteEventFromDatabase);
+  $('#events-page').on('click', '.event-edit-button', editEventFromDatabase);
 };
 
 export default { eventPageButtonHandlers };
