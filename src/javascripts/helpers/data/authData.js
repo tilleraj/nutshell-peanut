@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 const authDiv = document.getElementById('auth-div');
+const allPagesDiv = document.getElementById('all-pages');
 const eventsNavButton = document.getElementById('events-nav-button');
 const messagesNavButton = document.getElementById('messages-nav-button');
 const diaryNavButton = document.getElementById('diary-nav-button');
@@ -12,6 +13,7 @@ const checkLoginStatus = () => {
   // This checks login status of user
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      allPagesDiv.classList.remove('hide');
       authDiv.classList.add('hide');
       eventsNavButton.classList.remove('hide');
       diaryNavButton.classList.remove('hide');
