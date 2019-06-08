@@ -13,7 +13,7 @@ const entriesBuilder = () => {
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
       let domString = '<div class="row d-flex justify-content-center">';
-      domString += '<button class="btn btn-danger mt-3 mb-3 col-4 col-md-3 col-lg-2">Add a New Entry</button>';
+      domString += '<button id="addNewEntryButton" class="btn btn-secondary mt-3 mb-3 col-4 col-md-3 col-lg-2">Add a New Entry</button>';
       domString += '</div>';
       entriesArray.forEach((entry) => {
         domString += '<div class="row d-flex justify-content-center">';
@@ -31,12 +31,23 @@ const entriesBuilder = () => {
     .catch(err => console.error(err, 'pal your crap is broken'));
 };
 
-// const addEntryToDatabase = () => {
-
-// }
+const addEntryToDOM = () => {
+  let newEntry = '';
+  newEntry += '<div class="row d-flex justify-content-center">';
+  newEntry += '<div class="col-12 col-md-10 col-lg-8 text-center">';
+  newEntry += '<div class="card mb-2">';
+  newEntry += '<h2 class="editable">header</h2>';
+  newEntry += '<h4 class="editable">header</h4>';
+  newEntry += '<p class="editable">paragraph</p>';
+  newEntry += '</div>';
+  newEntry += '</div>';
+  newEntry += '</div>';
+  util.printToDom('diary-page', newEntry);
+};
 
 const entryPageButtonHandlers = () => {
   document.getElementById('diary-nav-button').addEventListener('click', entriesBuilder);
+  $('body').on('click', '#addNewEntryButton', addEntryToDOM);
 };
 
 export default { entryPageButtonHandlers };
