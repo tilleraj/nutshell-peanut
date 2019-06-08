@@ -18,7 +18,7 @@ const articlesBuilder = () => {
         domString += `    <div id="${article.id}" class="card">`;
         domString += `      <h2>${article.title}</h2>`;
         domString += `      <h4>${article.synopsis}</h4>`;
-        domString += `      <a href="${article.url}">Link</a>`;
+        domString += `      <a href="${article.url}" target="_blank">Link</a>`;
         domString += '    </div>';
         domString += '  </div>';
         domString += '</div>';
