@@ -13,12 +13,21 @@ const entriesBuilder = () => {
   // $('#diary-nav-button').addClass('hide');
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
+      const entriesToSort = entriesArray;
+      entriesToSort.sort((a, b) => {
+        // eslint-disable-next-line no-param-reassign
+        a = new Date(a.date);
+        // eslint-disable-next-line no-param-reassign
+        b = new Date(b.date);
+        // eslint-disable-next-line no-nested-ternary
+        return a < b ? 1 : a > b ? -1 : 0;
+      });
       let domString = '<div id="diary-container" class="container">';
       domString += '<div id="newDiary" class="row d-flex justify-content-center"></div>';
       domString += '<div class="row d-flex justify-content-center">';
       domString += '<button id="addNewEntryButton" class="btn btn-secondary mt-3 mb-3 col-4 col-md-3 col-lg-2">Add a New Entry</button>';
       domString += '</div>';
-      entriesArray.forEach((entry) => {
+      entriesToSort.forEach((entry) => {
         domString += '<div class="row d-flex justify-content-center">';
         domString += '<div class="col-12 col-md-10 col-lg-8 text-center">';
         domString += `<div id="${entry.id}" class="card mb-2">`;
