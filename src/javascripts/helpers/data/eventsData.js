@@ -18,4 +18,6 @@ const retrieveEventsByUserId = userId => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { addEventToDatabase, retrieveEventsByUserId };
+const removeEventFromDatabaseByEventId = eventId => axios.delete(`${firebaseUrl}/event/${eventId}.json`);
+
+export default { addEventToDatabase, retrieveEventsByUserId, removeEventFromDatabaseByEventId };

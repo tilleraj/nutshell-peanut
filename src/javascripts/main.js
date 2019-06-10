@@ -8,6 +8,7 @@ import '../styles/main.scss';
 import apiKeys from './helpers/apiKeys.json';
 import eventsPage from './components/events/events';
 import diaryPage from './components/entries/entries';
+import newsPage from './components/articles/articles';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -17,6 +18,7 @@ const init = () => {
   dashboard.drawDashbaord();
   eventsPage.eventPageButtonHandlers();
   diaryPage.entryPageButtonHandlers();
+  newsPage.newsPageButtonHandlers();
 };
 
 init();
