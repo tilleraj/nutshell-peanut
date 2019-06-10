@@ -15,10 +15,10 @@ const init = () => {
   navbar.navbarEvents();
   authData.checkLoginStatus();
   auth.authStringBuilder();
-  dashboard.drawDashbaord();
+  dashboard.drawDashboard();
   eventsPage.eventPageButtonHandlers();
   diaryPage.entryPageButtonHandlers();
-  messagesPage.messagePageButtonHandlers();
+  messagesPage.getMessages();
 };
 
 init();

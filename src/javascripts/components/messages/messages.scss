@@ -13,6 +13,32 @@ body {
   margin-top: 15px;
   align-self: center;
   padding-top: 15px;
+  height: 80%;
+}
+
+#messageInputDiv {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  border-radius: 10px;
+  width: 60%;
+  margin: auto;
+  margin-top: 15px;
+  align-self: center;
+  padding-top: 15px;
+  height: 80%;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+#messageInputField {
+  width: 80%;
+  border-radius: 8px;
+}
+
+#messageSubmitButton {
+  align-self: right;
+  margin-left: 8px;
 }
 
 .col-12 {
@@ -22,7 +48,7 @@ body {
 .message {
   max-width: 255px;
   word-wrap: break-word;
-  margin-bottom: 12px;
+  margin-bottom: 3px;
   line-height: 24px;
   position:relative;
 	padding:10px 20px;
@@ -36,14 +62,20 @@ body {
   text-align: left;
 }
 
+.timestamp {
+  font-size: .8em;
+  margin: 0;
+  text-align: right;
+}
+
 .from-me {
-	color:white; 
-	background:#0B93F6;
+  color:white; 
+  background:#0B93F6;
   align-self: flex-end;
   text-align: left;
 }
 
 .from-them {
-	background:#E5E5EA;
+  background:#E5E5EA;
   color:black;
 }

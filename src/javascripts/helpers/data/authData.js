@@ -19,7 +19,7 @@ const checkLoginStatus = () => {
       allPagesDiv.classList.remove('hide');
       authDiv.classList.add('hide');
       dashboardPage.classList.remove('hide');
-      dashboard.drawDashbaord();
+      dashboard.drawDashboard();
       dashboardNavButton.classList.remove('hide');
       eventsNavButton.classList.remove('hide');
       diaryNavButton.classList.remove('hide');
