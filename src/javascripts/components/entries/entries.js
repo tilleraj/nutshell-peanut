@@ -15,12 +15,10 @@ const entriesBuilder = () => {
     .then((entriesArray) => {
       const entriesToSort = entriesArray;
       entriesToSort.sort((a, b) => {
-        // eslint-disable-next-line no-param-reassign
-        a = new Date(a.date);
-        // eslint-disable-next-line no-param-reassign
-        b = new Date(b.date);
+        const dateA = a.date;
+        const dateB = b.date;
         // eslint-disable-next-line no-nested-ternary
-        return a < b ? 1 : a > b ? -1 : 0;
+        return dateA < dateB ? 1 : dateA > dateB ? -1 : 0;
       });
       let domString = '<div id="diary-container" class="container">';
       domString += '<div id="newDiary" class="row d-flex justify-content-center"></div>';
