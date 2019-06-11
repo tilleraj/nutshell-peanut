@@ -1,0 +1,38 @@
+{
+  "article1": {
+    "uid": "2ZlvP1oc6Ag3g5nunNNhoIxPAEu1",
+    "title": "Article 1 Title",
+    "synopsis": "Super dank article1 synopsis",
+    "url": "https://www.google.com"
+  },
+  "article2": {
+    "uid": "2ZlvP1oc6Ag3g5nunNNhoIxPAEu1",
+    "title": "Article 2 Title",
+    "synopsis": "Super dank article2 synopsis",
+    "url": "https://www.google.com"
+  },
+  "article3": {
+    "uid": "20UGG1WmdphLz5BD2HzdS5jChu22",
+    "title": "Article 3 Title",
+    "synopsis": "Super dank article3 synopsis",
+    "url": "https://www.google.com"
+  },
+  "article4": {
+    "uid": "G7QuRAF6OSbB2EdL7nG6JcD6o6f2",
+    "title": "Article 4 Title",
+    "synopsis": "Super dank article4 synopsis",
+    "url": "https://www.google.com"
+  },
+  "article5": {
+    "uid": "nLOE9T70FGR1NBBf35M7RRDcm7s2",
+    "title": "Article 5 Title",
+    "synopsis": "Super dank article5 synopsis",
+    "url": "https://www.google.com"
+  },
+  "article6": {
+    "uid": "2ZlvP1oc6Ag3g5nunNNhoIxPAEu1",
+    "title": "Article 6 Title",
+    "synopsis": "Super dank article6 synopsis",
+    "url": "https://www.google.com"
+  }
+}
