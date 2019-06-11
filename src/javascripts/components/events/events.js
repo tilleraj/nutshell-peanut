@@ -59,7 +59,7 @@ const showEventPage = () => {
   domstring += '<span aria-hidden="true">&times;</span>';
   domstring += '</button>';
   domstring += '</div>';
-  domstring += '<form id="events-new-form">';
+  domstring += '<form id="">';
   domstring += '<div class="modal-body">';
   domstring += '<div class="form-group">';
   domstring += '<label for="event-name">Event Name:</label>';
@@ -120,6 +120,9 @@ const deleteEventFromDatabase = (e) => {
 };
 
 const editEventFromDatabase = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  $('#eventModal').modal('hide');
   const userId = firebase.auth().currentUser.uid;
   const eventId = e.target.id;
   const newDateTime = `${$('#event-date')[0].value}T${$('#event-time')[0].value}`;
@@ -158,14 +161,15 @@ const addOrEditModalDisplay = (e) => {
   modal.find('.change-button').text(`Save ${modalPurpose}ed Event`);
   modal.find('.change-button').attr('id', eventId);
   modal.find('.change-button').addClass(modalPurpose);
+  modal.find('form').attr('id', modalPurpose);
 };
 
 const eventPageButtonHandlers = () => {
   $('#events-nav-button').on('click', showEventPage);
   $('#events-page').on('show.bs.modal', '#eventModal', addOrEditModalDisplay);
-  $('#events-page').on('submit', '#events-new-form', addEventToDatabase);
+  $('#events-page').on('submit', '#Add', addEventToDatabase);
   $('#events-page').on('click', '.event-delete-button', deleteEventFromDatabase);
-  $('#events-page').on('click', '.Edit', editEventFromDatabase);
+  $('#events-page').on('submit', '#Edit', editEventFromDatabase);
 };
 
 export default { eventPageButtonHandlers };
