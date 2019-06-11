@@ -1,7 +1,12 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import axios from 'axios';
+import $ from 'jquery';
+import apiKeys from '../apiKeys.json';
+
 import dashboard from '../../components/dashboard/dashboard';
 
+const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 const authDiv = document.getElementById('auth-div');
 const allPagesDiv = document.getElementById('all-pages');
 const dashboardPage = document.getElementById('dashboard-page');
@@ -16,6 +21,13 @@ const checkLoginStatus = () => {
   // This checks login status of user
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      axios.get(`${firebaseUrl}/user.json?orderBy="uid"&equalTo="${user.uid}"`)
+        .then((resp) => {
+          if (Object.entries(resp.data).length === 0 && resp.data.constructor === Object) {
+            $('#newUserModal').modal({ backdrop: 'static', keyboard: false });
+            $('#newUserModal').modal('show');
+          }
+        }).catch(err => console.error('new user error', err));
       allPagesDiv.classList.remove('hide');
       authDiv.classList.add('hide');
       dashboardPage.classList.remove('hide');
