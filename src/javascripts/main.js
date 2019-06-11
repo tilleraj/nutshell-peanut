@@ -9,11 +9,13 @@ import apiKeys from './helpers/apiKeys.json';
 import eventsPage from './components/events/events';
 import diaryPage from './components/entries/entries';
 import newsPage from './components/articles/articles';
+import newUser from './components/newUser/newUser';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
   navbar.navbarEvents();
   authData.checkLoginStatus();
+  newUser.newUserButtonHandlers();
   auth.authStringBuilder();
   dashboard.drawDashbaord();
   eventsPage.eventPageButtonHandlers();
