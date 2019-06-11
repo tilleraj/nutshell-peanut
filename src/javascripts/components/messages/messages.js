@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import './messages.scss';
 
+import $ from 'jquery';
 import util from '../../helpers/util';
 import messagesData from '../../helpers/data/messagesData';
 import usersData from '../../helpers/data/usersData';
@@ -9,8 +10,12 @@ import smash from '../../helpers/smash';
 
 const moment = require('moment');
 
-// const element = document.getElementById('messageBoard');
-// element.scrollTop = element.scrollHeight;
+const scrollPosition = () => {
+  const container = $('#messageBoard');
+  const containerHeight = container.clientHeight;
+  const contentHeight = container.scrollHeight;
+  container.scrollTop = contentHeight - containerHeight;
+};
 
 const addMessage = (e) => {
   e.preventDefault();
@@ -23,8 +28,11 @@ const addMessage = (e) => {
   messagesData.addMessageToDatabase(newMessage)
     .then(() => {
       document.getElementById('messageInputField').value = '';
+      // eslint-disable-next-line no-use-before-define
+      getMessages();
     })
     .catch(err => console.error('no new message added', err));
+  scrollPosition();
 };
 
 const listenForEnter = (e) => {

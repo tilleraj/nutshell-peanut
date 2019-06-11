@@ -2,7 +2,7 @@ const messagesWithUserInfo = (messages, users) => {
   const messagesWithUserInfoArray = [];
   messages.forEach((message) => {
     users.forEach((user) => {
-      if (message.uid === user.id) {
+      if (message.uid === user.uid) {
         message.userName = user.name;
         message.userImage = user.image;
       }

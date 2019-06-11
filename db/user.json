@@ -1,26 +1,26 @@
 {
   "user1": {
-    "id": "20UGG1WmdphLz5BD2HzdS5jChu22",
+    "uid": "20UGG1WmdphLz5BD2HzdS5jChu22",
     "name": "Emily",
     "image": "https://cdn4.iconfinder.com/data/icons/food-4-9/128/food_Almonds-Nut-Seeds-Snack-512.png"
   },
   "user2": {
-    "id": "G7QuRAF6OSbB2EdL7nG6JcD6o6f2",
+    "uid": "G7QuRAF6OSbB2EdL7nG6JcD6o6f2",
     "name": "Greg",
     "image": "https://image.flaticon.com/icons/png/512/676/676429.png"
   },
   "user3": {
-    "id": "nLOE9T70FGR1NBBf35M7RRDcm7s2",
+    "uid": "nLOE9T70FGR1NBBf35M7RRDcm7s2",
     "name": "Andrew",
     "image": "https://cdn0.iconfinder.com/data/icons/thanksgiving-goodies-filled/64/pine_nut-512.png"
   },
   "user4": {
-    "id": "2ZlvP1oc6Ag3g5nunNNhoIxPAEu1",
+    "uid": "2ZlvP1oc6Ag3g5nunNNhoIxPAEu1",
     "name": "Heath",
     "image": "https://cdn.iconscout.com/icon/premium/png-256-thumb/walnut-1-177005.png"
   },
   "user5": {
-    "id": "otherUser",
+    "uid": "otherUser",
     "name": "Some other guy",
     "image": "https://cdn4.iconfinder.com/data/icons/food-4-9/128/food_Pista-Pistachio-Nut-Nuts-512.png"
   }
