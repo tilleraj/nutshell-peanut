@@ -9,6 +9,9 @@ import smash from '../../helpers/smash';
 
 const moment = require('moment');
 
+// const element = document.getElementById('messageBoard');
+// element.scrollTop = element.scrollHeight;
+
 const addMessage = (e) => {
   e.preventDefault();
   const currentTime = moment().toISOString();
