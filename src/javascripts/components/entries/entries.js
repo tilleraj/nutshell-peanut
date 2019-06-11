@@ -8,6 +8,12 @@ import util from '../../helpers/util';
 import entriesData from '../../helpers/data/entriesData';
 // import moment = require('moment');
 
+let userEntries = [];
+
+const setUserEntries = (newArray) => {
+  userEntries = [...newArray];
+};
+
 const entriesBuilder = () => {
   // below jquery selectors will be removed after testing branch
   $('#diary-page').removeClass('hide');
@@ -15,6 +21,7 @@ const entriesBuilder = () => {
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
       const entriesToSort = entriesArray;
+      setUserEntries(entriesArray);
       entriesToSort.sort((a, b) => {
         const dateA = a.date;
         const dateB = b.date;
@@ -71,15 +78,22 @@ const updateEntryToDom = (e) => {
 
 const updateEntryToDatabase = () => {
   const target = $('.editEntryTarget')[0];
-  console.error(target);
+  const targetId = target.id;
+  const originalEntryObject = userEntries.filter(entry => entry.id === targetId);
+  console.error('look here pal!!!!', originalEntryObject);
   const updatedObject = {
-    date: $(target).find('h4')[0].innerHTML,
+    date: originalEntryObject[0].date,
     entry: $(target).find('p')[0].innerHTML,
     title: $(target).find('h2')[0].innerHTML,
     uid: firebase.auth().currentUser.uid,
   };
   console.error(updatedObject);
   $(target).removeClass('editEntryTarget');
+  entriesData.editEntryOnDatabase(updatedObject, targetId)
+    .then(() => {
+      entriesBuilder();
+    })
+    .catch(err => console.error(err));
 };
 
 const addEntryToDOM = () => {
