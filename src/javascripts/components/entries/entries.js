@@ -77,12 +77,22 @@ const addEntryToDatabase = () => {
     .catch(err => console.error(err, 'bad'));
 };
 
+const deleteEntryFromDatabase = (e) => {
+  const targetEntry = e.target.parentNode.parentNode.id;
+  console.error(targetEntry);
+  entriesData.deleteEntryFromDatabase(targetEntry)
+    .then(() => {
+      entriesBuilder();
+    })
+    .catch(err => console.error(err));
+};
+
 const entryPageButtonHandlers = () => {
   document.getElementById('diary-nav-button').addEventListener('click', entriesBuilder);
   $('body').on('click', '#addNewEntryButton', addEntryToDOM);
   $('body').on('click', '#cancelNewEntry', entriesBuilder);
   $('body').on('click', '#addNewEntry', addEntryToDatabase);
-  $('body').on('click', )
+  $('body').on('click', '.deleteEntryButton', deleteEntryFromDatabase);
 };
 
 export default { entryPageButtonHandlers };
