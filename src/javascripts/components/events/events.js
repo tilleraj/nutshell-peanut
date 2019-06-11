@@ -33,7 +33,7 @@ const eventPageDomStringBuilder = (uid) => {
         domstring += `<td id="event-date">${displayDate}</td>`;
         domstring += `<td id="event-time">${displayTime}</td>`;
         domstring += `<td><button type="button" id="edit_${event.id}" data-toggle="modal"`;
-        domstring += `data-id="${event.id}" data-purpose="Edit" data-target="#eventModal" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
+        domstring += `data-eventid="${event.id}" data-purpose="Edit" data-target="#eventModal" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
         domstring += `<button type="button" id="delete_${event.id}" class="btn btn-danger event-delete-button">X</button></td>`;
         domstring += '</tr>';
       });
@@ -49,7 +49,7 @@ const showEventPage = () => {
   $('#events-nav-button').addClass('hide');
   eventPageDomStringBuilder(uId);
   const today = moment().format('YYYY[-]MM[-]DD');
-  let domstring = '<button id="add-event-button" class="btn btn-success" data-id="submit-new-event" data-toggle="modal" data-target="#eventModal" data-purpose="Add">Add Event</button>';
+  let domstring = '<button id="add-event-button" class="btn btn-success" data-eventid="submit-new-event" data-toggle="modal" data-target="#eventModal" data-purpose="Add">Add Event</button>';
   domstring += '<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">';
   domstring += '<div class="modal-dialog" role="document">';
   domstring += '<div class="modal-content">';
@@ -60,7 +60,7 @@ const showEventPage = () => {
   domstring += '</button>';
   domstring += '</div>';
   domstring += '<form id="">';
-  domstring += '<div class="modal-body">';
+  domstring += '<div class="modal-body" id="">';
   domstring += '<div class="form-group">';
   domstring += '<label for="event-name">Event Name:</label>';
   domstring += '<input type="text" class="form-control" id="event-name" name="event-name" placeholder="Party Party Party" required></input>';
@@ -124,7 +124,7 @@ const editEventFromDatabase = (e) => {
   e.stopPropagation();
   $('#eventModal').modal('hide');
   const userId = firebase.auth().currentUser.uid;
-  const eventId = e.target.id;
+  const eventId = e.currentTarget.firstElementChild.id;
   const newDateTime = `${$('#event-date')[0].value}T${$('#event-time')[0].value}`;
   const newEventObj = {
     title: $('#event-name')[0].value,
@@ -144,7 +144,7 @@ const addOrEditModalDisplay = (e) => {
   let eventName = '';
   let eventTime = '16:20';
   let eventDate = moment().format('YYYY[-]MM[-]DD');
-  const eventId = button.data('id');
+  const eventId = button.data('eventid');
   if (modalPurpose === 'Edit') {
     eventName = button.parent().prev().prev().prev()
       .text();
@@ -159,7 +159,7 @@ const addOrEditModalDisplay = (e) => {
   modal.find('#event-date').val(eventDate);
   modal.find('#event-time').val(eventTime);
   modal.find('.change-button').text(`Save ${modalPurpose}ed Event`);
-  modal.find('.change-button').attr('id', eventId);
+  modal.find('.modal-body').attr('id', eventId);
   modal.find('.change-button').addClass(modalPurpose);
   modal.find('form').attr('id', modalPurpose);
 };
