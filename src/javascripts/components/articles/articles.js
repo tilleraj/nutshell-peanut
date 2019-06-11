@@ -1,16 +1,47 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-// import $ from 'jquery';
+import $ from 'jquery';
 
 import util from '../../helpers/util';
 import articlesData from '../../helpers/data/articlesData';
 import './articles.scss';
 
+const addArticle = () => {
+  console.error('hi');
+};
+
 const articlesBuilder = () => {
   articlesData.getArticlesByUserId(firebase.auth().currentUser.uid)
     .then((articlesArray) => {
       let domString = '';
+      domString += '<div class="articleButtonDiv mt-4 text-center">';
+      domString += '<button id="news-add-article">Add Article</button>';
+      domString += '</div>';
+      domString += '<div class="container mt-4">';
+      domString += '  <div class="row d-flex justify-content-center">';
+      domString += '    <div class="col-12 col-md-10 col-lg-8 text-center">';
+      domString += '      <div id="newArticle" class="card">';
+      domString += '        <div class="container">';
+      domString += '          <form>';
+      domString += '            <div class="form-group d-flex mt-3">';
+      domString += '              <label class="col-12 col-sm-2 col-form-label" for="articleTitle">Title</label>';
+      domString += '              <input class="col-12 col-sm-10 form-control form-control" type="text" name="articleTitle" id="articleTitleInput">';
+      domString += '            </div>';
+      domString += '            <div class="form-group d-flex">';
+      domString += '              <label class="col-12 col-sm-2 col-form-label" for="articleSynopsis">Synopsis</label>';
+      domString += '              <input class="col-12 col-sm-10 form-control"type="text" name="articleSynopsis" id="articleSynopsisInput">';
+      domString += '            </div>';
+      domString += '            <div class="form-group d-flex">';
+      domString += '              <label class="col-12 col-sm-2 col-form-label" for="articleUrl">URL</label>';
+      domString += '              <input class="col-12 col-sm-10 form-control form-control" type="text" name="articleUrl" id="articleUrlInput">';
+      domString += '            </div>';
+      domString += '          </form>';
+      domString += '        </div>';
+      domString += '      </div>';
+      domString += '    </div>';
+      domString += '  </div>';
+      domString += '</div>';
       domString += '<div class="container mt-4">';
       articlesArray.forEach((article) => {
         domString += '<div class="row d-flex justify-content-center">';
@@ -25,12 +56,13 @@ const articlesBuilder = () => {
       });
       domString += '</div>';
       util.printToDom('news-page', domString);
+      $('#news-add-article').click(addArticle);
     })
     .catch(err => console.error(err, 'pal your crap is broken'));
 };
 
 const newsPageButtonHandlers = () => {
-  document.getElementById('news-nav-button').addEventListener('click', articlesBuilder);
+  $('#news-nav-button').click(articlesBuilder);
 };
 
 export default { newsPageButtonHandlers };
