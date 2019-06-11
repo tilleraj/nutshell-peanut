@@ -24,15 +24,8 @@ const checkLoginStatus = () => {
       axios.get(`${firebaseUrl}/user.json?orderBy="uid"&equalTo="${user.uid}"`)
         .then((resp) => {
           if (Object.entries(resp.data).length === 0 && resp.data.constructor === Object) {
-            // console.error('new user');
             $('#newUserModal').modal({ backdrop: 'static', keyboard: false });
             $('#newUserModal').modal('show');
-            // const newUser = {
-            //   uid: user.uid,
-            //   image: 'https://www.w3schools.com/howto/img_avatar.png',
-            //   name: 'New User',
-            // };
-            // axios.post(`${firebaseUrl}/user.json`, newUser);
           }
         }).catch(err => console.error('new user error', err));
       allPagesDiv.classList.remove('hide');
