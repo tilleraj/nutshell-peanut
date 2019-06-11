@@ -82,6 +82,7 @@ const entryPageButtonHandlers = () => {
   $('body').on('click', '#addNewEntryButton', addEntryToDOM);
   $('body').on('click', '#cancelNewEntry', entriesBuilder);
   $('body').on('click', '#addNewEntry', addEntryToDatabase);
+  $('body').on('click', )
 };
 
 export default { entryPageButtonHandlers };
