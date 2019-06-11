@@ -51,6 +51,7 @@ const entriesBuilder = () => {
 
 const updateEntryToDom = (e) => {
   const targetedEntry = e.target.parentNode.parentNode;
+  $(targetedEntry).addClass('editEntryTarget');
   console.error(targetedEntry);
   const title = $(targetedEntry).find('h2');
   // const date = $(targetedEntry).find('h4');
@@ -58,8 +59,8 @@ const updateEntryToDom = (e) => {
   title.addClass('editable');
   title.attr('contenteditable', 'true');
   // date.innerHTML = moment.creea
-  entry.find('p').addClass('editable');
-  entry.find('p').attr('contenteditable', 'true');
+  entry.addClass('editable');
+  entry.attr('contenteditable', 'true');
   $(targetedEntry).find('.saveEntryButton').removeClass('hide');
   $(targetedEntry).find('.cancelEntryButton').removeClass('hide');
   $(targetedEntry).find('.editEntryButton').addClass('hide');
@@ -68,8 +69,17 @@ const updateEntryToDom = (e) => {
   title.focus();
 };
 
-const updateEntryToDatabase = (target) => {
+const updateEntryToDatabase = () => {
+  const target = $('.editEntryTarget')[0];
   console.error(target);
+  const updatedObject = {
+    date: $(target).find('h4')[0].innerHTML,
+    entry: $(target).find('p')[0].innerHTML,
+    title: $(target).find('h2')[0].innerHTML,
+    uid: firebase.auth().currentUser.uid,
+  };
+  console.error(updatedObject);
+  $(target).removeClass('editEntryTarget');
 };
 
 const addEntryToDOM = () => {
