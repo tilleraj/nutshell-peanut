@@ -9,6 +9,7 @@ import apiKeys from './helpers/apiKeys.json';
 import eventsPage from './components/events/events';
 import diaryPage from './components/entries/entries';
 import messagesPage from './components/messages/messages';
+import newsPage from './components/articles/articles';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -19,6 +20,7 @@ const init = () => {
   eventsPage.eventPageButtonHandlers();
   diaryPage.entryPageButtonHandlers();
   messagesPage.getMessages();
+  newsPage.newsPageButtonHandlers();
 };
 
 init();
