@@ -3,6 +3,10 @@ body {
   margin: auto;
 }
 
+#messages-page {
+  height: 100%;
+}
+
 #messageBoard {
   display: flex;
   flex-wrap: wrap;
@@ -14,6 +18,7 @@ body {
   align-self: center;
   padding-top: 15px;
   height: 80%;
+  overflow-y: auto;
 }
 
 #messageInputDiv {
@@ -78,4 +83,8 @@ body {
 .from-them {
   background:#E5E5EA;
   color:black;
+}
+
+.from-me-message {
+  justify-content: flex-end;
 }

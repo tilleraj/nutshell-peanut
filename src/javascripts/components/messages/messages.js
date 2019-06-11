@@ -7,20 +7,28 @@ import messagesData from '../../helpers/data/messagesData';
 import usersData from '../../helpers/data/usersData';
 import smash from '../../helpers/smash';
 
-// const moment = require('moment');
+const moment = require('moment');
 
 const addMessage = (e) => {
   e.preventDefault();
+  const currentTime = moment().toISOString();
   const newMessage = {
     uid: firebase.auth().currentUser.uid,
     message: document.getElementById('messageInputField').value,
-    // timestamp:
+    timestamp: currentTime,
   };
   messagesData.addMessageToDatabase(newMessage)
     .then(() => {
       document.getElementById('messageInputField').value = '';
     })
     .catch(err => console.error('no new message added', err));
+};
+
+const listenForEnter = (e) => {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    document.getElementById('messageSubmitBtn').click();
+  }
 };
 
 const addEvents = () => {
@@ -30,26 +38,37 @@ const addEvents = () => {
     timestamp.addEventListener('mouseover', timestamp.classList.remove('hide'));
   });
   document.getElementById('messageSubmitBtn').addEventListener('click', addMessage);
+  document.getElementById('messageInputField').addEventListener('keyup', listenForEnter);
 };
 
 const messagesBuilder = (messagesArray) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       const currentUserId = firebase.auth().currentUser.uid;
+      const messagesToSort = messagesArray;
+      messagesToSort.sort((a, b) => {
+        // eslint-disable-next-line no-param-reassign
+        a = new Date(a.timestamp);
+        // eslint-disable-next-line no-param-reassign
+        b = new Date(b.timestamp);
+        // eslint-disable-next-line no-nested-ternary
+        return a < b ? -1 : a > b ? 1 : 0;
+      });
       let userType = '';
       let domString = '';
       domString += '<div id="messageBoard">';
-      messagesArray.forEach((message) => {
+      messagesToSort.forEach((message) => {
+        const timeToDisplay = moment(message.timestamp).format('dddd, MMMM Do YYYY, h:mm a');
         if (message.uid === currentUserId) {
           userType = 'from-me';
         } else {
           userType = 'from-them';
         }
-        domString += '<div class="col-12 text-center">';
-        domString += `<div class="full-message-div ${userType}-message" id="${message.id}">`;
+        domString += `<div class="col-12 text-center ${userType}-message">`;
+        domString += `<div class="full-message-div" id="${message.id}">`;
         domString += `<p class="userName">${message.userName}</p>`;
         domString += `<p class="message ${userType}">${message.message}</p>`;
-        domString += `<p class="timestamp hide">${message.timestamp}</p>`;
+        domString += `<p class="timestamp">${timeToDisplay}</p>`;
         domString += '</div>';
         domString += '</div>';
       });
@@ -74,7 +93,6 @@ const getMessages = () => {
       usersData.getUsers()
         .then((users) => {
           const finalMessages = smash.messagesWithUserInfo(messages, users);
-          console.error('smashed messages', finalMessages);
           messagesBuilder(finalMessages);
         });
     });
