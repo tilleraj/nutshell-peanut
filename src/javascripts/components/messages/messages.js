@@ -2,7 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import './messages.scss';
 
-import $ from 'jquery';
 import util from '../../helpers/util';
 import messagesData from '../../helpers/data/messagesData';
 import usersData from '../../helpers/data/usersData';
@@ -11,10 +10,8 @@ import smash from '../../helpers/smash';
 const moment = require('moment');
 
 const scrollPosition = () => {
-  const container = $('#messageBoard');
-  const containerHeight = container.clientHeight;
-  const contentHeight = container.scrollHeight;
-  container.scrollTop = contentHeight - containerHeight;
+  const element = document.getElementById('messageBoard');
+  element.scrollTop = element.scrollHeight;
 };
 
 const addMessage = (e) => {
@@ -96,6 +93,7 @@ const messagesBuilder = (messagesArray) => {
       console.error('not logged in');
     }
   });
+  scrollPosition();
 };
 
 const getMessages = () => {
