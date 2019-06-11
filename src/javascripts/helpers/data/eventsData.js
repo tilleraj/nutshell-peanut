@@ -4,6 +4,7 @@ import apiKeys from '../apiKeys.json';
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const addEventToDatabase = eventObj => axios.post(`${firebaseUrl}/event.json`, eventObj);
+
 const retrieveEventsByUserId = userId => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/event.json?orderBy="uid"&equalTo="${userId}"`)
     .then((results) => {
@@ -20,4 +21,11 @@ const retrieveEventsByUserId = userId => new Promise((resolve, reject) => {
 
 const removeEventFromDatabaseByEventId = eventId => axios.delete(`${firebaseUrl}/event/${eventId}.json`);
 
-export default { addEventToDatabase, retrieveEventsByUserId, removeEventFromDatabaseByEventId };
+const editEventOnDatabase = (newEventObj, eventId) => axios.put(`${firebaseUrl}/event/${eventId}.json`, newEventObj);
+
+export default {
+  addEventToDatabase,
+  retrieveEventsByUserId,
+  removeEventFromDatabaseByEventId,
+  editEventOnDatabase,
+};
