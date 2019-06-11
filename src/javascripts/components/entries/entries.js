@@ -47,7 +47,6 @@ const addEntryToDOM = () => {
   newEntry += '<div class="col-12 col-md-10 col-lg-8 text-center">';
   newEntry += '<div class="card mb-4">';
   newEntry += '<h2 id="newDiaryTitle" class="editable" contenteditable="true">Entry Title</h2>';
-  newEntry += `<h4 id="newDiaryDate" class="editable" contenteditable="true">${moment().format('MMMM D, YYYY')}</h4>`;
   newEntry += '<p id="newDiaryEntry" class="editable" contenteditable="true">Write Your Entry Here</p>';
   newEntry += '<div class="d-flex justify-content-end">';
   newEntry += '<button id="addNewEntry" class="btn btn-primary col-2">Save</button>';
