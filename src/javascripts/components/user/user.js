@@ -25,15 +25,15 @@ const deleteProfile = (e) => {
   const button = $(e.target);
   const userDataId = button.data('userobjectid');
   const userId = firebase.auth().currentUser.uid;
-  console.error(userDataId, userId);
-  userData.deleteUserFromDatabase(userDataId);
   eventsData.retrieveEventsByUserId(userId)
     .then((eventsResponse) => {
       for (let i = 0; i < eventsResponse.length; i += 1) {
-        eventsData.removeEventFromDatabaseByEventId(eventsResponse[i].uid);
+        console.error(eventsResponse[i].id);
+        eventsData.removeEventFromDatabaseByEventId(eventsResponse[i].id);
       }
     })
     .catch(err => console.error('deleteProfile events delete', err));
+  userData.deleteUserFromDatabase(userDataId);
   $('#areYouSureDeleteModal').modal('hide');
   $('#editProfileModal').modal('hide');
   logoutUser();
