@@ -59,7 +59,6 @@ const entriesBuilder = () => {
 const updateEntryToDom = (e) => {
   const targetedEntry = e.target.parentNode.parentNode;
   $(targetedEntry).addClass('editEntryTarget');
-  console.error(targetedEntry);
   const title = $(targetedEntry).find('h2');
   // const date = $(targetedEntry).find('h4');
   const entry = $(targetedEntry).find('p');
@@ -80,14 +79,12 @@ const updateEntryToDatabase = () => {
   const target = $('.editEntryTarget')[0];
   const targetId = target.id;
   const originalEntryObject = userEntries.filter(entry => entry.id === targetId);
-  console.error('look here pal!!!!', originalEntryObject);
   const updatedObject = {
     date: originalEntryObject[0].date,
     entry: $(target).find('p')[0].innerHTML,
     title: $(target).find('h2')[0].innerHTML,
     uid: firebase.auth().currentUser.uid,
   };
-  console.error(updatedObject);
   $(target).removeClass('editEntryTarget');
   entriesData.editEntryOnDatabase(updatedObject, targetId)
     .then(() => {
