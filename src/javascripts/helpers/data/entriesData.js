@@ -22,4 +22,11 @@ const removeEntryFromDatabase = entryId => axios.delete(`${firebaseUrl}/entry/${
 
 const addEntryToDatabase = entryObj => axios.post(`${firebaseUrl}/entry.json`, entryObj);
 
-export default { getEntries, addEntryToDatabase, removeEntryFromDatabase };
+const editEntryOnDatabase = (newEntryObj, entryId) => axios.put(`${firebaseUrl}/entry/${entryId}.json`, newEntryObj);
+
+export default {
+  getEntries,
+  addEntryToDatabase,
+  removeEntryFromDatabase,
+  editEntryOnDatabase,
+};
