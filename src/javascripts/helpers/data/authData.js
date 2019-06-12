@@ -35,6 +35,7 @@ const checkLoginStatus = () => {
       // If user is logged out, login button and authorization button are shown, everything else is hidden
       authDiv.classList.remove('hide');
       allPagesDiv.addClass('hide');
+      $('.page').addClass('hide');
       dashboardNavButton.classList.add('hide');
       $('#navbar-links').addClass('hide');
     }
