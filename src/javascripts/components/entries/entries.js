@@ -85,7 +85,6 @@ const updateEntryToDatabase = () => {
     title: $(target).find('h2')[0].innerHTML,
     uid: firebase.auth().currentUser.uid,
   };
-  console.error(updatedObject);
   $(target).removeClass('editEntryTarget');
   entriesData.editEntryOnDatabase(updatedObject, targetId)
     .then(() => {
