@@ -20,4 +20,6 @@ const getEntries = uid => new Promise((resolve, reject) => {
 
 const addEntryToDatabase = entryObj => axios.post(`${firebaseUrl}/entry.json`, entryObj);
 
-export default { getEntries, addEntryToDatabase };
+const editEntryOnDatabase = (newEntryObj, entryId) => axios.put(`${firebaseUrl}/entry/${entryId}.json`, newEntryObj);
+
+export default { getEntries, addEntryToDatabase, editEntryOnDatabase };
