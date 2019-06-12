@@ -10,6 +10,7 @@ import eventsPage from './components/events/events';
 import diaryPage from './components/entries/entries';
 import newsPage from './components/articles/articles';
 import newUser from './components/newUser/newUser';
+import userStuff from './components/user/user';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -21,6 +22,7 @@ const init = () => {
   eventsPage.eventPageButtonHandlers();
   diaryPage.entryPageButtonHandlers();
   newsPage.newsPageButtonHandlers();
+  userStuff.userEventHandlers();
 };
 
 init();
