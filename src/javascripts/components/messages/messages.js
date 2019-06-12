@@ -10,11 +10,11 @@ import smash from '../../helpers/smash';
 
 const moment = require('moment');
 
-const scrollPosition = () => {
-  console.error('scrollHeight function not working');
-  // const element = document.getElementById('messageBoard');
-  // element.scrollTop = element.scrollHeight;
-};
+// const scrollPosition = () => {
+//   console.error('scrollHeight function not working');
+//   const element = document.getElementById('messageBoard');
+//   element.scrollTop = element.scrollHeight;
+// };
 
 const addMessage = (e) => {
   e.preventDefault();
@@ -31,7 +31,7 @@ const addMessage = (e) => {
       getMessages();
     })
     .catch(err => console.error('no new message added', err));
-  scrollPosition();
+  // scrollPosition();
 };
 
 const listenForEnter = (e) => {
@@ -54,11 +54,11 @@ const editMessage = (e) => {
   e.stopPropagation();
   const targetId = e.target.id;
   const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
-  $(`#${targetId}.messageText`).toggle(300);
-  $(`#${targetId}.editMessageBtn`).toggle(300);
-  $(`#${targetId}.saveMessageBtn`).toggle(300);
-  $(`#${targetId}.cancelChangeBtn`).toggle(300);
-  $(`#${targetId}.deleteMessageBtn`).toggle(300);
+  $(`#${targetId}.messageText`).toggle(100);
+  $(`#${targetId}.editMessageBtn`).toggle(100);
+  $(`#${targetId}.saveMessageBtn`).toggle(100);
+  $(`#${targetId}.cancelChangeBtn`).toggle(100);
+  $(`#${targetId}.deleteMessageBtn`).toggle(100);
   messageText.contentEditable = 'true';
   messageText.classList.add('editable');
   messageText.addEventListener('keyup', listenForSaveEnter);
@@ -95,6 +95,16 @@ const showButtonsAndTimestamp = (e) => {
   $(`#${targetId}.timestamp`).toggle(1000);
 };
 
+const cancelChanges = (e) => {
+  const targetId = e.target.id;
+  $(`#${targetId}.saveMessageBtn`).toggle(1000);
+  $(`#${targetId}.cancelChangeBtn`).toggle(1000);
+  $(`#${targetId}.timestamp`).toggle(1000);
+  const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
+  messageText.contentEditable = 'false';
+  messageText.classList.remove('editable');
+};
+
 const addEvents = () => {
   // The code below is not working for hiding and showing timestamps!
   // const timestamps = document.getElementsByClassName('full-message-div');
@@ -113,6 +123,10 @@ const addEvents = () => {
   const messageOptionsBtns = Array.from(document.getElementsByClassName('messageOptionsBtn'));
   messageOptionsBtns.forEach((button) => {
     button.addEventListener('click', showButtonsAndTimestamp);
+  });
+  const cancelChangeBtns = Array.from(document.getElementsByClassName('cancelChangeBtn'));
+  cancelChangeBtns.forEach((button) => {
+    button.addEventListener('click', cancelChanges);
   });
   document.getElementById('messageSubmitBtn').addEventListener('click', addMessage);
   document.getElementById('messageInputField').addEventListener('keyup', listenForEnter);
@@ -169,7 +183,7 @@ const messagesBuilder = (messagesArray) => {
       console.error('not logged in');
     }
   });
-  scrollPosition();
+  // scrollPosition();
 };
 
 const getMessages = () => {
