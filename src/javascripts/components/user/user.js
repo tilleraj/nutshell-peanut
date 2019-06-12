@@ -15,6 +15,7 @@ const displayNameInNavbar = (userId) => {
 
 const logoutUser = () => {
   firebase.auth().signOut();
+  $('.user-button').html('');
 };
 
 const userEventHandlers = () => {
