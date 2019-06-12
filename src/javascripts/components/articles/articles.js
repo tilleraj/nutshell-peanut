@@ -76,11 +76,6 @@ const articlesBuilder = () => {
         $('#articleSynopsisInput')[0].value = '';
         $('#articleUrlInput')[0].value = '';
       });
-      // Array.from($('.news-deleteArticle')).forEach((deleteButton) => {
-      //   deleteButton.click((e) => {
-      //     console.error('delete: ', e.target.id);
-      //   });
-      // });
       const deleteButtons = Array.from($('.news-deleteArticle'));
       deleteButtons.forEach((button) => {
         button.addEventListener('click', () => {
