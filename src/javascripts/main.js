@@ -11,6 +11,7 @@ import diaryPage from './components/entries/entries';
 import messagesPage from './components/messages/messages';
 import newsPage from './components/articles/articles';
 import newUser from './components/newUser/newUser';
+import userStuff from './components/user/user';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -23,6 +24,7 @@ const init = () => {
   diaryPage.entryPageButtonHandlers();
   messagesPage.getMessages();
   newsPage.newsPageButtonHandlers();
+  userStuff.userEventHandlers();
 };
 
 init();

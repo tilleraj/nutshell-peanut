@@ -6,6 +6,13 @@ import moment from 'moment';
 
 import util from '../../helpers/util';
 import entriesData from '../../helpers/data/entriesData';
+// import moment = require('moment');
+
+let userEntries = [];
+
+const setUserEntries = (newArray) => {
+  userEntries = [...newArray];
+};
 
 const entriesBuilder = () => {
   // below jquery selectors will be removed after testing branch
@@ -14,6 +21,7 @@ const entriesBuilder = () => {
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
       const entriesToSort = entriesArray;
+      setUserEntries(entriesArray);
       entriesToSort.sort((a, b) => {
         const dateA = a.date;
         const dateB = b.date;
@@ -32,6 +40,12 @@ const entriesBuilder = () => {
         domString += `<h2>${entry.title}</h2>`;
         domString += `<h4>${moment(entry.date, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY')}</h4>`;
         domString += `<p>${entry.entry}</p>`;
+        domString += '<div class="d-flex justify-content-end">';
+        domString += '<button class="btn btn-primary col-2 saveEntryButton hide">Save</button>';
+        domString += '<button class="btn btn-primary col-2 editEntryButton">Edit</button>';
+        domString += '<button class="btn btn-danger col-2 deleteEntryButton">Delete</button>';
+        domString += '<button class="btn btn-danger col-2 cancelEntryButton hide">Cancel</button>';
+        domString += '</div>';
         domString += '</div>';
         domString += '</div>';
         domString += '</div>';
@@ -40,6 +54,43 @@ const entriesBuilder = () => {
       util.printToDom('diary-page', domString);
     })
     .catch(err => console.error(err, 'pal your crap is broken'));
+};
+
+const updateEntryToDom = (e) => {
+  const targetedEntry = e.target.parentNode.parentNode;
+  $(targetedEntry).addClass('editEntryTarget');
+  const title = $(targetedEntry).find('h2');
+  // const date = $(targetedEntry).find('h4');
+  const entry = $(targetedEntry).find('p');
+  title.addClass('editable');
+  title.attr('contenteditable', 'true');
+  // date.innerHTML = moment.creea
+  entry.addClass('editable');
+  entry.attr('contenteditable', 'true');
+  $(targetedEntry).find('.saveEntryButton').removeClass('hide');
+  $(targetedEntry).find('.cancelEntryButton').removeClass('hide');
+  $(targetedEntry).find('.editEntryButton').addClass('hide');
+  $(targetedEntry).find('.deleteEntryButton').addClass('hide');
+  // date.innerHTML = moment().format()
+  title.focus();
+};
+
+const updateEntryToDatabase = () => {
+  const target = $('.editEntryTarget')[0];
+  const targetId = target.id;
+  const originalEntryObject = userEntries.filter(entry => entry.id === targetId);
+  const updatedObject = {
+    date: originalEntryObject[0].date,
+    entry: $(target).find('p')[0].innerHTML,
+    title: $(target).find('h2')[0].innerHTML,
+    uid: firebase.auth().currentUser.uid,
+  };
+  $(target).removeClass('editEntryTarget');
+  entriesData.editEntryOnDatabase(updatedObject, targetId)
+    .then(() => {
+      entriesBuilder();
+    })
+    .catch(err => console.error(err));
 };
 
 const addEntryToDOM = () => {
@@ -77,11 +128,24 @@ const addEntryToDatabase = () => {
     .catch(err => console.error(err, 'bad'));
 };
 
+const deleteEntryFromDatabase = (e) => {
+  const targetEntry = e.target.parentNode.parentNode.id;
+  entriesData.removeEntryFromDatabase(targetEntry)
+    .then(() => {
+      entriesBuilder();
+    })
+    .catch(err => console.error(err));
+};
+
 const entryPageButtonHandlers = () => {
   document.getElementById('diary-nav-button').addEventListener('click', entriesBuilder);
+  $('body').on('click', '.editEntryButton', updateEntryToDom);
   $('body').on('click', '#addNewEntryButton', addEntryToDOM);
   $('body').on('click', '#cancelNewEntry', entriesBuilder);
+  $('body').on('click', '.cancelEntryButton', entriesBuilder);
   $('body').on('click', '#addNewEntry', addEntryToDatabase);
+  $('body').on('click', '.deleteEntryButton', deleteEntryFromDatabase);
+  $('body').on('click', '.saveEntryButton', updateEntryToDatabase);
 };
 
 export default { entryPageButtonHandlers };

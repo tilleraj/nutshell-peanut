@@ -3,6 +3,7 @@ import 'firebase/auth';
 import $ from 'jquery';
 import util from '../../helpers/util';
 import userData from '../../helpers/data/userData';
+import userStuff from '../user/user';
 import './newUser.scss';
 
 // if the back button is hit, recreates the first modal page
@@ -109,6 +110,7 @@ const saveNewUser = (e) => {
     .then(() => {
       $('#newUserModal').modal('hide');
       resetModalBody();
+      userStuff.displayNameInNavbar(userId);
     }).catch(err => console.error('problem adding new user', err));
 };
 

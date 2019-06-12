@@ -18,6 +18,15 @@ const getEntries = uid => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const removeEntryFromDatabase = entryId => axios.delete(`${firebaseUrl}/entry/${entryId}.json`);
+
 const addEntryToDatabase = entryObj => axios.post(`${firebaseUrl}/entry.json`, entryObj);
 
-export default { getEntries, addEntryToDatabase };
+const editEntryOnDatabase = (newEntryObj, entryId) => axios.put(`${firebaseUrl}/entry/${entryId}.json`, newEntryObj);
+
+export default {
+  getEntries,
+  addEntryToDatabase,
+  removeEntryFromDatabase,
+  editEntryOnDatabase,
+};
