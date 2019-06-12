@@ -47,9 +47,14 @@ const articlesBuilder = () => {
         domString += '<div class="row d-flex justify-content-center">';
         domString += '  <div class="col-12 col-md-10 col-lg-8 text-center">';
         domString += `    <div id="${article.id}" class="card">`;
-        domString += `      <h2>${article.title}</h2>`;
+        domString += `      <h2 class="mt-3">${article.title}</h2>`;
         domString += `      <h4>${article.synopsis}</h4>`;
         domString += `      <a href="${article.url}" target="_blank">Link</a>`;
+        domString += '      <div class="container">';
+        domString += '        <div class="form-group d-flex justify-content-end">';
+        domString += `          <button id="delete.${article.id}" class="btn btn-outline-danger news-deleteArticle">Delete</button>`;
+        domString += '        </div>';
+        domString += '      </div>';
         domString += '    </div>';
         domString += '  </div>';
         domString += '</div>';
@@ -70,6 +75,17 @@ const articlesBuilder = () => {
         $('#articleTitleInput')[0].value = '';
         $('#articleSynopsisInput')[0].value = '';
         $('#articleUrlInput')[0].value = '';
+      });
+      const deleteButtons = Array.from($('.news-deleteArticle'));
+      deleteButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const articleId = button.id.split('.')[1];
+          articlesData.deleteArticleById(articleId)
+            .then(() => {
+              articlesBuilder();
+            })
+            .catch(error => console.error('can\t deleteArticleById', error));
+        });
       });
     })
     .catch(error => console.error('can\'t getArticleByUserId', error));
