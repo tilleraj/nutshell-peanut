@@ -83,7 +83,6 @@ const createArticle = (e) => {
     synopsis: $('#articleSynopsisInput')[0].value,
     url: $('#articleUrlInput')[0].value,
   };
-  console.error(newArticle);
   articlesData.addArticle(newArticle)
     .then(() => {
       articlesBuilder();
