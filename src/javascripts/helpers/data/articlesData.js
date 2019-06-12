@@ -3,7 +3,7 @@ import apiKeys from '../apiKeys.json';
 
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
-const addEvent = article => axios.post(`${firebaseUrl}/article.json`, article);
+const addArticle = article => axios.post(`${firebaseUrl}/article.json`, article);
 
 const getArticlesByUserId = userId => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/article.json?orderBy="uid"&equalTo="${userId}"`)
@@ -16,7 +16,7 @@ const getArticlesByUserId = userId => new Promise((resolve, reject) => {
       });
       resolve(articles);
     })
-    .catch(err => reject(err));
+    .catch(error => reject(error));
 });
 
-export default { addEvent, getArticlesByUserId };
+export default { addArticle, getArticlesByUserId };

@@ -59,11 +59,36 @@ const articlesBuilder = () => {
       $('#news-add-article').click(() => {
         $('#news-newArticle').removeClass('hide');
       });
-      $('#news-newArticle-cancel').click(() => {
+      $('#news-newArticle-submit').click((e) => {
+        // $('#news-newArticle').addClass('hide');
+        // eslint-disable-next-line no-use-before-define
+        createArticle(e);
+      });
+      $('#news-newArticle-cancel').click((e) => {
+        e.preventDefault();
         $('#news-newArticle').addClass('hide');
+        $('#articleTitleInput')[0].value = '';
+        $('#articleSynopsisInput')[0].value = '';
+        $('#articleUrlInput')[0].value = '';
       });
     })
-    .catch(err => console.error(err, 'pal your crap is broken'));
+    .catch(error => console.error('can\'t getArticleByUserId', error));
+};
+
+const createArticle = (e) => {
+  e.preventDefault();
+  const newArticle = {
+    uid: firebase.auth().currentUser.uid,
+    title: $('#articleTitleInput')[0].value,
+    synopsis: $('#articleSynopsisInput')[0].value,
+    url: $('#articleUrlInput')[0].value,
+  };
+  console.error(newArticle);
+  articlesData.addArticle(newArticle)
+    .then(() => {
+      articlesBuilder();
+    })
+    .catch(error => console.error('can\'t add article', error));
 };
 
 const newsPageButtonHandlers = () => {
