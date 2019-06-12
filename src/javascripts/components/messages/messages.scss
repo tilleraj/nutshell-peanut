@@ -63,7 +63,7 @@ body {
 
 .userName {
   font-size: .8em;
-  margin: 0;
+  margin: 5px;
   text-align: left;
 }
 
@@ -87,4 +87,10 @@ body {
 
 .from-me-message {
   justify-content: flex-end;
+}
+
+.editable {
+  background-color: white;
+  border: 2px solid #0B93F6;
+  color: black;
 }

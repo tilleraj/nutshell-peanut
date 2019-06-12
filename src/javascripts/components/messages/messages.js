@@ -40,26 +40,43 @@ const listenForEnter = (e) => {
   }
 };
 
+const listenForEditEnter = (e) => {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
+    selectedEditBtn.click();
+  }
+};
+
 const editMessage = (e) => {
   e.preventDefault();
   e.stopPropagation();
-  console.error(e.target.id);
   const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
-  console.error(messageText.textContent);
-  messageText.contentEditable = 'true';
   const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
-  selectedEditBtn.classList.add('hide');
   const selectedSaveButton = document.getElementById(e.target.id).getElementsByClassName('saveMessageBtn')[0];
+  const selectedCancelBtn = document.getElementById(e.target.id).getElementsByClassName('cancelChangeBtn')[0];
+  const selectedDeleteBtn = document.getElementById(e.target.id).getElementsByClassName('deleteMessageBtn')[0];
+  selectedEditBtn.classList.add('hide');
   selectedSaveButton.classList.remove('hide');
+  selectedCancelBtn.classList.remove('hide');
+  selectedDeleteBtn.classList.add('hide');
+  messageText.contentEditable = 'true';
+  messageText.classList.add('editable');
+  messageText.addEventListener('keyup', listenForEditEnter);
 };
 
 const updateMessage = (e) => {
-  console.error(e.target.id);
+  const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
   const selectedSaveButton = document.getElementById(e.target.id).getElementsByClassName('saveMessageBtn')[0];
-  selectedSaveButton.classList.add('hide');
   const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
+  const selectedCancelBtn = document.getElementById(e.target.id).getElementsByClassName('cancelChangeBtn')[0];
+  const selectedDeleteBtn = document.getElementById(e.target.id).getElementsByClassName('deleteMessageBtn')[0];
+  selectedSaveButton.classList.add('hide');
   selectedEditBtn.classList.remove('hide');
-  // Make save button not show anymore
+  selectedCancelBtn.classList.add('hide');
+  selectedDeleteBtn.classList.remove('hide');
+  messageText.contentEditable = 'true';
+  messageText.classList.remove('editable');
 };
 
 const addEvents = () => {
@@ -107,12 +124,14 @@ const messagesBuilder = (messagesArray) => {
         domString += `<div class="col-12 text-center ${userType}-message">`;
         domString += `<div class="full-message-div" id="${message.id}">`;
         domString += `<p class="userName">${message.userName}</p>`;
-        domString += `<p class="message messageText ${userType}">${message.message}</p>`;
-        domString += `<p class="timestamp">${timeToDisplay}</p>`;
+        domString += `<span class="message messageText ${userType}">${message.message}</span>`;
         if (message.uid === currentUserId) {
           domString += `<button id="${message.id}" class="editMessageBtn">Edit</button>`;
           domString += `<button id="${message.id}" class="saveMessageBtn hide">Save</button>`;
+          domString += `<button id="${message.id}" class="deleteMessageBtn">Delete</button>`;
+          domString += `<button id="${message.id}" class="cancelChangeBtn hide">Cancel</button>`;
         }
+        domString += `<p class="timestamp hide">${timeToDisplay}</p>`;
         domString += '</div>';
         domString += '</div>';
       });
