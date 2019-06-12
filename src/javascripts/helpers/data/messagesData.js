@@ -19,4 +19,6 @@ const getMessages = () => new Promise((resolve, reject) => {
 
 const addMessageToDatabase = messageObj => axios.post(`${firebaseUrl}/message.json`, messageObj);
 
-export default { addMessageToDatabase, getMessages };
+const editMessageInDatabase = (newMessageObj, messageId) => axios.put(`${firebaseUrl}/message/${messageId}.json`, newMessageObj);
+
+export default { addMessageToDatabase, getMessages, editMessageInDatabase };

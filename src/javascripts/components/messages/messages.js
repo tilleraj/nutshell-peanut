@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import './messages.scss';
 
+import $ from 'jquery';
 import util from '../../helpers/util';
 import messagesData from '../../helpers/data/messagesData';
 import usersData from '../../helpers/data/usersData';
@@ -40,7 +41,7 @@ const listenForEnter = (e) => {
   }
 };
 
-const listenForEditEnter = (e) => {
+const listenForSaveEnter = (e) => {
   if (e.keyCode === 13) {
     e.preventDefault();
     const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
@@ -51,32 +52,47 @@ const listenForEditEnter = (e) => {
 const editMessage = (e) => {
   e.preventDefault();
   e.stopPropagation();
+  const targetId = e.target.id;
   const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
-  const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
-  const selectedSaveButton = document.getElementById(e.target.id).getElementsByClassName('saveMessageBtn')[0];
-  const selectedCancelBtn = document.getElementById(e.target.id).getElementsByClassName('cancelChangeBtn')[0];
-  const selectedDeleteBtn = document.getElementById(e.target.id).getElementsByClassName('deleteMessageBtn')[0];
-  selectedEditBtn.classList.add('hide');
-  selectedSaveButton.classList.remove('hide');
-  selectedCancelBtn.classList.remove('hide');
-  selectedDeleteBtn.classList.add('hide');
+  $(`#${targetId}.messageText`).toggle(300);
+  $(`#${targetId}.editMessageBtn`).toggle(300);
+  $(`#${targetId}.saveMessageBtn`).toggle(300);
+  $(`#${targetId}.cancelChangeBtn`).toggle(300);
+  $(`#${targetId}.deleteMessageBtn`).toggle(300);
   messageText.contentEditable = 'true';
   messageText.classList.add('editable');
-  messageText.addEventListener('keyup', listenForEditEnter);
+  messageText.addEventListener('keyup', listenForSaveEnter);
 };
 
-const updateMessage = (e) => {
+const saveMessageUpdate = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const targetId = e.target.id;
   const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
-  const selectedSaveButton = document.getElementById(e.target.id).getElementsByClassName('saveMessageBtn')[0];
-  const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
-  const selectedCancelBtn = document.getElementById(e.target.id).getElementsByClassName('cancelChangeBtn')[0];
-  const selectedDeleteBtn = document.getElementById(e.target.id).getElementsByClassName('deleteMessageBtn')[0];
-  selectedSaveButton.classList.add('hide');
-  selectedEditBtn.classList.remove('hide');
-  selectedCancelBtn.classList.add('hide');
-  selectedDeleteBtn.classList.remove('hide');
+  $(`#${targetId}.editMessageBtn`).toggle(300);
+  $(`#${targetId}.saveMessageBtn`).toggle(300);
+  $(`#${targetId}.cancelChangeBtn`).toggle(300);
+  $(`#${targetId}.deleteMessageBtn`).toggle(300);
   messageText.contentEditable = 'true';
   messageText.classList.remove('editable');
+  const userId = firebase.auth().currentUser.uid;
+  const messageTextContent = messageText.textContent;
+  const newTimestamp = '?';
+  const newMessageObject = {
+    message: messageTextContent,
+    uid: userId,
+    timestamp: newTimestamp,
+  };
+  console.error(newMessageObject);
+  console.error(e.target.id);
+  messagesData.editMessageInDatabase(newMessageObject, e.target.id);
+};
+
+const showButtonsAndTimestamp = (e) => {
+  const targetId = e.target.id;
+  $(`#${targetId}.editMessageBtn`).toggle(1000);
+  $(`#${targetId}.deleteMessageBtn`).toggle(1000);
+  $(`#${targetId}.timestamp`).toggle(1000);
 };
 
 const addEvents = () => {
@@ -92,7 +108,11 @@ const addEvents = () => {
   });
   const saveMessageEditsBtns = Array.from(document.getElementsByClassName('saveMessageBtn'));
   saveMessageEditsBtns.forEach((button) => {
-    button.addEventListener('click', updateMessage);
+    button.addEventListener('click', saveMessageUpdate);
+  });
+  const messageOptionsBtns = Array.from(document.getElementsByClassName('messageOptionsBtn'));
+  messageOptionsBtns.forEach((button) => {
+    button.addEventListener('click', showButtonsAndTimestamp);
   });
   document.getElementById('messageSubmitBtn').addEventListener('click', addMessage);
   document.getElementById('messageInputField').addEventListener('keyup', listenForEnter);
@@ -126,12 +146,13 @@ const messagesBuilder = (messagesArray) => {
         domString += `<p class="userName">${message.userName}</p>`;
         domString += `<span class="message messageText ${userType}">${message.message}</span>`;
         if (message.uid === currentUserId) {
-          domString += `<button id="${message.id}" class="editMessageBtn">Edit</button>`;
-          domString += `<button id="${message.id}" class="saveMessageBtn hide">Save</button>`;
-          domString += `<button id="${message.id}" class="deleteMessageBtn">Delete</button>`;
-          domString += `<button id="${message.id}" class="cancelChangeBtn hide">Cancel</button>`;
+          domString += `<button id="${message.id}" class="btn btn-outline-primary editMessageBtn hide">Edit</button>`;
+          domString += `<button id="${message.id}" class="btn btn-outline-primary saveMessageBtn hide">Save</button>`;
+          domString += `<button id="${message.id}" class="btn btn-outline-danger deleteMessageBtn hide">Delete</button>`;
+          domString += `<button id="${message.id}" class="btn btn-outline-danger cancelChangeBtn hide">Cancel</button>`;
+          domString += `<input type="image" id="${message.id}" class="messageOptionsBtn" src="https://image.flaticon.com/icons/svg/483/483345.svg" alt="See Message Options">`;
         }
-        domString += `<p class="timestamp hide">${timeToDisplay}</p>`;
+        domString += `<p id="${message.id}" class="timestamp hide">${timeToDisplay}</p>`;
         domString += '</div>';
         domString += '</div>';
       });
