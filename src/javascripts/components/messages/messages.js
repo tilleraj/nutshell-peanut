@@ -44,6 +44,22 @@ const editMessage = (e) => {
   e.preventDefault();
   e.stopPropagation();
   console.error(e.target.id);
+  const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
+  console.error(messageText.textContent);
+  messageText.contentEditable = 'true';
+  const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
+  selectedEditBtn.classList.add('hide');
+  const selectedSaveButton = document.getElementById(e.target.id).getElementsByClassName('saveMessageBtn')[0];
+  selectedSaveButton.classList.remove('hide');
+};
+
+const updateMessage = (e) => {
+  console.error(e.target.id);
+  const selectedSaveButton = document.getElementById(e.target.id).getElementsByClassName('saveMessageBtn')[0];
+  selectedSaveButton.classList.add('hide');
+  const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
+  selectedEditBtn.classList.remove('hide');
+  // Make save button not show anymore
 };
 
 const addEvents = () => {
@@ -56,6 +72,10 @@ const addEvents = () => {
   const messageEditBtns = Array.from(document.getElementsByClassName('editMessageBtn'));
   messageEditBtns.forEach((button) => {
     button.addEventListener('click', editMessage);
+  });
+  const saveMessageEditsBtns = Array.from(document.getElementsByClassName('saveMessageBtn'));
+  saveMessageEditsBtns.forEach((button) => {
+    button.addEventListener('click', updateMessage);
   });
   document.getElementById('messageSubmitBtn').addEventListener('click', addMessage);
   document.getElementById('messageInputField').addEventListener('keyup', listenForEnter);
@@ -87,10 +107,11 @@ const messagesBuilder = (messagesArray) => {
         domString += `<div class="col-12 text-center ${userType}-message">`;
         domString += `<div class="full-message-div" id="${message.id}">`;
         domString += `<p class="userName">${message.userName}</p>`;
-        domString += `<p class="message ${userType}">${message.message}</p>`;
+        domString += `<p class="message messageText ${userType}">${message.message}</p>`;
         domString += `<p class="timestamp">${timeToDisplay}</p>`;
         if (message.uid === currentUserId) {
           domString += `<button id="${message.id}" class="editMessageBtn">Edit</button>`;
+          domString += `<button id="${message.id}" class="saveMessageBtn hide">Save</button>`;
         }
         domString += '</div>';
         domString += '</div>';
