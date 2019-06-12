@@ -10,8 +10,9 @@ import smash from '../../helpers/smash';
 const moment = require('moment');
 
 const scrollPosition = () => {
-  const element = document.getElementById('messageBoard');
-  element.scrollTop = element.scrollHeight;
+  console.error('scrollHeight function not working');
+  // const element = document.getElementById('messageBoard');
+  // element.scrollTop = element.scrollHeight;
 };
 
 const addMessage = (e) => {
@@ -39,11 +40,22 @@ const listenForEnter = (e) => {
   }
 };
 
+const editMessage = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  console.error(e.target.id);
+};
+
 const addEvents = () => {
-  const timestamps = document.getElementsByClassName('full-message-div');
-  const timestampsArray = Array.from(timestamps);
-  timestampsArray.forEach((timestamp) => {
-    timestamp.addEventListener('mouseover', timestamp.classList.remove('hide'));
+  // The code below is not working for hiding and showing timestamps!
+  // const timestamps = document.getElementsByClassName('full-message-div');
+  // const timestampsArray = Array.from(timestamps);
+  // timestampsArray.forEach((timestamp) => {
+  //   timestamp.addEventListener('mouseover', timestamp.classList.remove('hide'));
+  // });
+  const messageEditBtns = Array.from(document.getElementsByClassName('editMessageBtn'));
+  messageEditBtns.forEach((button) => {
+    button.addEventListener('click', editMessage);
   });
   document.getElementById('messageSubmitBtn').addEventListener('click', addMessage);
   document.getElementById('messageInputField').addEventListener('keyup', listenForEnter);
@@ -77,6 +89,9 @@ const messagesBuilder = (messagesArray) => {
         domString += `<p class="userName">${message.userName}</p>`;
         domString += `<p class="message ${userType}">${message.message}</p>`;
         domString += `<p class="timestamp">${timeToDisplay}</p>`;
+        if (message.uid === currentUserId) {
+          domString += `<button id="${message.id}" class="editMessageBtn">Edit</button>`;
+        }
         domString += '</div>';
         domString += '</div>';
       });
