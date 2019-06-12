@@ -1,6 +1,3 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
 const dashBoardPage = document.getElementById('dashboard-page');
 const messagesPage = document.getElementById('messages-page');
 const newsPage = document.getElementById('news-page');
@@ -11,14 +8,7 @@ const navbarEvents = () => {
   const navLinks = document.getElementsByClassName('nav-link');
   for (let i = 0; i < navLinks.length; i += 1) {
     navLinks[i].addEventListener('click', (e) => {
-      if (e.target.id === 'logout-nav-button') {
-        firebase.auth().signOut();
-        dashBoardPage.classList.add('hide');
-        messagesPage.classList.add('hide');
-        newsPage.classList.add('hide');
-        eventsPage.classList.add('hide');
-        diaryPage.classList.add('hide');
-      } else if (e.target.id === 'dashboard-nav-button') {
+      if (e.target.id === 'dashboard-nav-button') {
         dashBoardPage.classList.remove('hide');
         messagesPage.classList.add('hide');
         newsPage.classList.add('hide');
