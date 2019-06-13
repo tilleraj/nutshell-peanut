@@ -28,7 +28,7 @@ const eventPageDomStringBuilder = (uid) => {
       eventsToSort.forEach((event) => {
         const displayDate = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY');
         const displayTime = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('h[:]mm a');
-        domstring += '<tr>';
+        domstring += '<tr class="event-row">';
         domstring += `<td id="event-title">${event.title}</td>`;
         domstring += `<td id="event-date">${displayDate}</td>`;
         domstring += `<td id="event-time">${displayTime}</td>`;

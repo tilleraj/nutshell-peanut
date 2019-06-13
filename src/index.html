@@ -5,33 +5,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
   <title>Document</title>
 </head>
 
 <body>
   <div id="navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a id="home-nav-button" class="navbar-brand" href="#">Nutshell</a>
+      <a id="home-nav-button" data-page="dashboard-page" class="navbar-brand link" href="#">Nutshell</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto hide" id="navbar-links">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a id="dashboard-nav-button" class="nav-link">Home</a>
+          </li> -->
+          <li class="nav-item">
+            <a id="events-nav-button" data-page="events-page" class="link nav-link">Events</a>
           </li>
           <li class="nav-item">
-            <a id="events-nav-button" class="nav-link">Events</a>
+            <a id="messages-nav-button" data-page="messages-page" class="link nav-link">Messages</a>
           </li>
           <li class="nav-item">
-            <a id="messages-nav-button" class="nav-link">Messages</a>
+            <a id="diary-nav-button" data-page="diary-page" class="link nav-link">Diary</a>
           </li>
           <li class="nav-item">
-            <a id="diary-nav-button" class="nav-link">Diary</a>
-          </li>
-          <li class="nav-item">
-            <a id="news-nav-button" class="nav-link">News</a>
+            <a id="news-nav-button" data-page="news-page" class="link nav-link">News</a>
           </li>
           <li class="nav-item dropdown">
             <a class="dropdown-toggle user-button nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
