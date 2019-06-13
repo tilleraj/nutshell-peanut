@@ -3,6 +3,8 @@ import 'firebase/auth';
 import $ from 'jquery';
 import userData from '../../helpers/data/userData';
 import eventsData from '../../helpers/data/eventsData';
+import articlesData from '../../helpers/data/articlesData';
+import entriesData from '../../helpers/data/entriesData';
 import './user.scss';
 import util from '../../helpers/util';
 
@@ -25,14 +27,29 @@ const deleteProfile = (e) => {
   const button = $(e.target);
   const userDataId = button.data('userobjectid');
   const userId = firebase.auth().currentUser.uid;
+  // this will delete events from the user
   eventsData.retrieveEventsByUserId(userId)
     .then((eventsResponse) => {
       for (let i = 0; i < eventsResponse.length; i += 1) {
-        console.error(eventsResponse[i].id);
         eventsData.removeEventFromDatabaseByEventId(eventsResponse[i].id);
       }
     })
     .catch(err => console.error('deleteProfile events delete', err));
+  articlesData.getArticlesByUserId(userId)
+    .then((articleResponse) => {
+      for (let i = 0; i < articleResponse.length; i += 1) {
+        articlesData.deleteArticleById(articleResponse[i].id);
+      }
+    });
+  // this will delete entries from the user
+  entriesData.getEntries(userId)
+    .then((entriesResponse) => {
+      for (let i = 0; i < entriesResponse.length; i += 1) {
+        entriesData.removeEntryFromDatabase(entriesResponse[i].id);
+      }
+    });
+  // this will delete messages from the user
+  // this deletes the user object from database
   userData.deleteUserFromDatabase(userDataId);
   $('#areYouSureDeleteModal').modal('hide');
   $('#editProfileModal').modal('hide');
