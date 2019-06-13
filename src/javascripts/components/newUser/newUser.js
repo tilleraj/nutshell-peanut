@@ -122,4 +122,4 @@ const newUserButtonHandlers = () => {
   $('#newUserModal').on('click', '#save-new-user', saveNewUser);
 };
 
-export default { newUserButtonHandlers };
+export default { newUserButtonHandlers, selectAvatar };

@@ -8,6 +8,27 @@ import entriesData from '../../helpers/data/entriesData';
 import './user.scss';
 import util from '../../helpers/util';
 
+const avatars = [
+  'https://image.flaticon.com/icons/svg/145/145847.svg',
+  'https://image.flaticon.com/icons/svg/145/145850.svg',
+  'https://image.flaticon.com/icons/svg/145/145843.svg',
+  'https://image.flaticon.com/icons/svg/145/145846.svg',
+  'https://image.flaticon.com/icons/svg/145/145849.svg',
+  'https://image.flaticon.com/icons/svg/145/145842.svg',
+  'https://image.flaticon.com/icons/svg/145/145845.svg',
+  'https://image.flaticon.com/icons/svg/145/145844.svg',
+];
+
+const selectAvatar = (e) => {
+  const updatedAvatars = $('.avatar-image');
+  for (let i = 0; i < updatedAvatars.length; i += 1) {
+    updatedAvatars[i].classList.remove('selected');
+  }
+  e.target.classList.add('selected');
+  const newAvatar = e.target.src;
+  $('#edit-avatar-modal').attr('src', newAvatar);
+};
+
 const displayNameInNavbar = (userId) => {
   userData.getUserInfoByUserId(userId)
     .then((user) => {
@@ -62,7 +83,21 @@ const buildEditProfileModal = () => {
       domstring += `<div id="userObjDiv" class="container" data-userobjectid="${userObj[0].id}">`;
       domstring += '<div id="avatar-in-modal" class="row justify-content-center">';
       domstring += `<img id="edit-avatar-modal" class="col-12 mb-4" src="${userObj[0].image}"></img>`;
-      domstring += '<button class="btn btn-info col-auto">Change Avatar</button>';
+      domstring += '<button class="btn btn-info col-auto mb-2" data-toggle="collapse" data-target="#avatarSelection" aria-expanded="false" aria-controls="avatarSelection">Change Avatar</button>';
+      domstring += '<div class="collapse col-12 mb-3" id="avatarSelection">';
+      domstring += '<div id="avatar-selector" class="container mt-2">';
+      domstring += '<div class="row">';
+      for (let i = 0; i < avatars.length; i += 1) {
+        domstring += '<div class="avatar col-3 mt-2">';
+        domstring += `<a id="${i}-avatar" class="avatar-link"><img class="avatar-image`;
+        if (avatars[i] === userObj[0].image) {
+          domstring += ' selected';
+        }
+        domstring += `" src="${avatars[i]}"></a>`;
+        domstring += '</div>';
+      }
+      domstring += '</div>';
+      domstring += '</div>';
       domstring += '</div>';
       domstring += '<div class="input-group mb-3">';
       domstring += '<div class="input-group-prepend">';
@@ -103,6 +138,7 @@ const userEventHandlers = () => {
   $('#edit-profile-nav-button').on('click', buildEditProfileModal);
   $('#are-you-sure-delete').on('click', deleteProfile);
   $('#user-save-updates').on('click', updatesChanges);
+  $('#edit-profile-modal-body').on('click', '.avatar-link', selectAvatar);
 };
 
 export default { displayNameInNavbar, userEventHandlers };
