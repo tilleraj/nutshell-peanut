@@ -52,6 +52,7 @@ const articlesBuilder = () => {
         domString += `      <a href="${article.url}" target="_blank">Link</a>`;
         domString += '      <div class="container">';
         domString += '        <div class="form-group d-flex justify-content-end">';
+        domString += `          <button id="edit.${article.id}" class="btn btn-outline-warning news-editArticle mr-3">Edit</button>`;
         domString += `          <button id="delete.${article.id}" class="btn btn-outline-danger news-deleteArticle">Delete</button>`;
         domString += '        </div>';
         domString += '      </div>';
@@ -85,6 +86,13 @@ const articlesBuilder = () => {
               articlesBuilder();
             })
             .catch(error => console.error('can\t deleteArticleById', error));
+        });
+      });
+      const editButtons = Array.from($('.news-editArticle'));
+      editButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const articleId = button.id.split('.')[1];
+          console.error('hello from edit on', articleId);
         });
       });
     })

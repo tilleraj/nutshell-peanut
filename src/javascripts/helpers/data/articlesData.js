@@ -19,6 +19,10 @@ const getArticlesByUserId = userId => new Promise((resolve, reject) => {
     .catch(error => reject(error));
 });
 
+const editArticle = (newEventObj, eventId) => axios.put(`${firebaseUrl}/article/${eventId}.json`, newEventObj);
+
 const deleteArticleById = articleId => axios.delete(`${firebaseUrl}/article/${articleId}.json`);
 
-export default { addArticle, getArticlesByUserId, deleteArticleById };
+export default {
+  addArticle, getArticlesByUserId, editArticle, deleteArticleById,
+};
