@@ -10,11 +10,12 @@ import smash from '../../helpers/smash';
 
 const moment = require('moment');
 
-// const scrollPosition = () => {
-//   console.error('scrollHeight function not working');
-//   const element = document.getElementById('messageBoard');
-//   element.scrollTop = element.scrollHeight;
-// };
+const scrollPosition = () => {
+  const container = document.getElementById('messageBoard');
+  const containerHeight = container.clientHeight;
+  const contentHeight = container.scrollHeight;
+  container.scrollTop = contentHeight - containerHeight;
+};
 
 const addMessage = (e) => {
   e.preventDefault();
@@ -179,6 +180,7 @@ const messagesBuilder = (messagesArray) => {
       domString += '</div>';
       util.printToDom('messages-page', domString);
       addEvents();
+      scrollPosition();
     } else {
       console.error('not logged in');
     }
