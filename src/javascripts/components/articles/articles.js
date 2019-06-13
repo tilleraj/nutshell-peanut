@@ -7,6 +7,19 @@ import util from '../../helpers/util';
 import articlesData from '../../helpers/data/articlesData';
 import './articles.scss';
 
+const editOn = (articleId) => {
+  const articleElement = $(`#${articleId}`);
+  articleElement.find('h2')[0].contentEditable = 'true';
+  articleElement.find('h4')[0].contentEditable = 'true';
+  articleElement.find('a')[0].after('<p>true</p>');
+  // const synopsisElement = articleElement.find('h4')[0];
+  // const urlElement = articleElement.find('a')[0];
+
+  // const oldTitle = titleElement.innerText;
+  // const oldSynopsis = synopsisElement.innerText;
+  // const oldUrl = urlElement.href;
+};
+
 const articlesBuilder = () => {
   articlesData.getArticlesByUserId(firebase.auth().currentUser.uid)
     .then((articlesArray) => {
@@ -92,7 +105,7 @@ const articlesBuilder = () => {
       editButtons.forEach((button) => {
         button.addEventListener('click', () => {
           const articleId = button.id.split('.')[1];
-          console.error('hello from edit on', articleId);
+          editOn(articleId);
         });
       });
     })
