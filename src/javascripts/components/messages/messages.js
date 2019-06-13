@@ -225,4 +225,8 @@ const getMessages = () => {
     });
 };
 
-export default { getMessages };
+const messagePageButtonHandlers = () => {
+  $('body').on('click', '.messages-nav-button', getMessages);
+};
+
+export default { getMessages, messagePageButtonHandlers };

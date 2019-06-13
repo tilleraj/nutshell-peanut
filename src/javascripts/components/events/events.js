@@ -164,7 +164,7 @@ const addOrEditModalDisplay = (e) => {
 };
 
 const eventPageButtonHandlers = () => {
-  $('#events-nav-button').on('click', showEventPage);
+  $('body').on('click', '.events-nav-button', showEventPage);
   $('#events-page').on('show.bs.modal', '#eventModal', addOrEditModalDisplay);
   $('#events-page').on('submit', '#Add', addEventToDatabase);
   $('#events-page').on('click', '.event-delete-button', deleteEventFromDatabase);

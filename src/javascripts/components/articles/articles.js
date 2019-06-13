@@ -107,7 +107,7 @@ const createArticle = (e) => {
 };
 
 const newsPageButtonHandlers = () => {
-  $('#news-nav-button').click(articlesBuilder);
+  $('body').on('click', '.news-nav-button', articlesBuilder);
 };
 
 export default { newsPageButtonHandlers };
