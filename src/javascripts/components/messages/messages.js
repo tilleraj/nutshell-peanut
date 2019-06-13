@@ -159,58 +159,52 @@ const addEvents = () => {
 };
 
 const messagesBuilder = (messagesArray) => {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      const currentUserId = firebase.auth().currentUser.uid;
-      const messagesToSort = messagesArray;
-      setMessages(messagesArray);
-      messagesToSort.sort((a, b) => {
-        // eslint-disable-next-line no-param-reassign
-        a = new Date(a.timestamp);
-        // eslint-disable-next-line no-param-reassign
-        b = new Date(b.timestamp);
-        // eslint-disable-next-line no-nested-ternary
-        return a < b ? -1 : a > b ? 1 : 0;
-      });
-      let userType = '';
-      let domString = '';
-      domString += '<div id="messageBoard">';
-      messagesToSort.forEach((message) => {
-        const timeToDisplay = moment(message.timestamp).format('dddd, MMMM Do YYYY, h:mm a');
-        if (message.uid === currentUserId) {
-          userType = 'from-me';
-        } else {
-          userType = 'from-them';
-        }
-        domString += `<div class="col-12 text-center ${userType}-message">`;
-        domString += `<div class="full-message-div" id="${message.id}">`;
-        domString += `<p class="userName">${message.userName}</p>`;
-        domString += `<span class="message messageText ${userType}">${message.message}</span>`;
-        if (message.uid === currentUserId) {
-          domString += `<button id="${message.id}" class="btn btn-outline-primary editMessageBtn hide">Edit</button>`;
-          domString += `<button id="${message.id}" class="btn btn-outline-primary saveMessageBtn hide">Save</button>`;
-          domString += `<button id="${message.id}" class="btn btn-outline-danger deleteMessageBtn hide">Delete</button>`;
-          domString += `<button id="${message.id}" class="btn btn-outline-danger cancelChangeBtn hide">Cancel</button>`;
-          domString += `<input type="image" id="${message.id}" class="messageOptionsBtn" src="https://image.flaticon.com/icons/svg/483/483345.svg" alt="See Message Options">`;
-        }
-        domString += `<p id="${message.id}" class="timestamp hide">${timeToDisplay}</p>`;
-        domString += '</div>';
-        domString += '</div>';
-      });
-      domString += '</div>';
-      domString += '<div id="messageInputDiv">';
-      domString += '<div class="col-12 text-center">';
-      domString += '<input id="messageInputField" type="text" placeholder="Type message here"></input>';
-      domString += '<button id="messageSubmitBtn" class="btn btn-primary">Submit</button>';
-      domString += '</div>';
-      domString += '</div>';
-      util.printToDom('messages-page', domString);
-      addEvents();
-      scrollPosition();
-    } else {
-      console.error('not logged in');
-    }
+  const currentUserId = firebase.auth().currentUser.uid;
+  const messagesToSort = messagesArray;
+  setMessages(messagesArray);
+  messagesToSort.sort((a, b) => {
+    // eslint-disable-next-line no-param-reassign
+    a = new Date(a.timestamp);
+    // eslint-disable-next-line no-param-reassign
+    b = new Date(b.timestamp);
+    // eslint-disable-next-line no-nested-ternary
+    return a < b ? -1 : a > b ? 1 : 0;
   });
+  let userType = '';
+  let domString = '';
+  domString += '<div id="messageBoard">';
+  messagesToSort.forEach((message) => {
+    const timeToDisplay = moment(message.timestamp).format('dddd, MMMM Do YYYY, h:mm a');
+    if (message.uid === currentUserId) {
+      userType = 'from-me';
+    } else {
+      userType = 'from-them';
+    }
+    domString += `<div class="col-12 text-center ${userType}-message">`;
+    domString += `<div class="full-message-div" id="${message.id}">`;
+    domString += `<p class="userName">${message.userName}</p>`;
+    domString += `<span class="message messageText ${userType}">${message.message}</span>`;
+    if (message.uid === currentUserId) {
+      domString += `<button id="${message.id}" class="btn btn-outline-primary editMessageBtn hide">Edit</button>`;
+      domString += `<button id="${message.id}" class="btn btn-outline-primary saveMessageBtn hide">Save</button>`;
+      domString += `<button id="${message.id}" class="btn btn-outline-danger deleteMessageBtn hide">Delete</button>`;
+      domString += `<button id="${message.id}" class="btn btn-outline-danger cancelChangeBtn hide">Cancel</button>`;
+      domString += `<input type="image" id="${message.id}" class="messageOptionsBtn" src="https://image.flaticon.com/icons/svg/483/483345.svg" alt="See Message Options">`;
+    }
+    domString += `<p id="${message.id}" class="timestamp hide">${timeToDisplay}</p>`;
+    domString += '</div>';
+    domString += '</div>';
+  });
+  domString += '</div>';
+  domString += '<div id="messageInputDiv">';
+  domString += '<div class="col-12 text-center">';
+  domString += '<input id="messageInputField" type="text" placeholder="Type message here"></input>';
+  domString += '<button id="messageSubmitBtn" class="btn btn-primary">Submit</button>';
+  domString += '</div>';
+  domString += '</div>';
+  util.printToDom('messages-page', domString);
+  addEvents();
+  scrollPosition();
   // scrollPosition();
 };
 
