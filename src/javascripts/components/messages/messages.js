@@ -26,7 +26,6 @@ const setMessages = (newArray) => {
 const deleteMessage = (e) => {
   e.preventDefault();
   const targetId = e.target.id;
-  console.error(targetId);
   messagesData.deleteMessageFromDatabase(targetId)
     .then(() => {
       // eslint-disable-next-line no-use-before-define
@@ -103,11 +102,12 @@ const saveMessageUpdate = (e) => {
     uid: userId,
     timestamp: originalTimestamp,
   };
-  console.error(newMessageObject);
-  console.error(e.target.id);
-  messagesData.editMessageInDatabase(newMessageObject, e.target.id);
-  // eslint-disable-next-line no-use-before-define
-  getMessages();
+  messagesData.editMessageInDatabase(newMessageObject, e.target.id)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      getMessages();
+    })
+    .catch(err => console.error('no message delete for you', err));
 };
 
 const showButtonsAndTimestamp = (e) => {
