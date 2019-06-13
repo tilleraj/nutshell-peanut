@@ -36,7 +36,7 @@
           <li class="nav-item dropdown">
             <a class="dropdown-toggle user-button nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" >Edit Profile</a>
+              <a id="edit-profile-nav-button" class="dropdown-item">Edit Profile</a>
               <a id="logout-nav-button" class="dropdown-item">Logout</a>
             </div>
           </li>
@@ -74,6 +74,42 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="edit-profile-modal-body" class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="areYouSureDeleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSureDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="areYouSureDeleteModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="are-you-sure-body" class="modal-body">
+            <p>Are you sure you want to delete your profile? You can NOT undue this</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="are-you-sure-delete" class="btn btn-danger">DELETE</button>
+          </div>
+        </div>
+      </div>
+    </div>
   <div id="auth-div"></div>
   <div id="all-pages" class="hide">
     <div id="dashboard-page" class="page hide"></div>

@@ -4,6 +4,7 @@ import apiKeys from '../apiKeys.json';
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const addUserToDatabase = userObj => axios.post(`${firebaseUrl}/user.json`, userObj);
+
 const getUserInfoByUserId = userId => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/user.json?orderBy="uid"&equalTo="${userId}"`)
     .then((resp) => {
@@ -18,4 +19,6 @@ const getUserInfoByUserId = userId => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { addUserToDatabase, getUserInfoByUserId };
+const deleteUserFromDatabase = userId => axios.delete(`${firebaseUrl}/user/${userId}.json`);
+
+export default { addUserToDatabase, getUserInfoByUserId, deleteUserFromDatabase };
