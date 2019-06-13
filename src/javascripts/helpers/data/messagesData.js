@@ -21,4 +21,11 @@ const addMessageToDatabase = messageObj => axios.post(`${firebaseUrl}/message.js
 
 const editMessageInDatabase = (newMessageObj, messageId) => axios.put(`${firebaseUrl}/message/${messageId}.json`, newMessageObj);
 
-export default { addMessageToDatabase, getMessages, editMessageInDatabase };
+const deleteMessageFromDatabase = messageId => axios.delete(`${firebaseUrl}/message/${messageId}.json`);
+
+export default {
+  addMessageToDatabase,
+  getMessages,
+  editMessageInDatabase,
+  deleteMessageFromDatabase,
+};

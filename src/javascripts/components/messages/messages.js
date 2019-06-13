@@ -17,6 +17,23 @@ const scrollPosition = () => {
   container.scrollTop = contentHeight - containerHeight;
 };
 
+let userMessages = [];
+
+const setMessages = (newArray) => {
+  userMessages = [...newArray];
+};
+
+const deleteMessage = (e) => {
+  e.preventDefault();
+  const targetId = e.target.id;
+  messagesData.deleteMessageFromDatabase(targetId)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      getMessages();
+    })
+    .catch(err => console.error('no message delete for you', err));
+};
+
 const addMessage = (e) => {
   e.preventDefault();
   const currentTime = moment().toISOString();
@@ -70,6 +87,7 @@ const saveMessageUpdate = (e) => {
   e.stopPropagation();
   const targetId = e.target.id;
   const messageText = document.getElementById(e.target.id).getElementsByClassName('messageText')[0];
+  const originalMessageObject = userMessages.filter(message => message.id === targetId);
   $(`#${targetId}.editMessageBtn`).toggle(300);
   $(`#${targetId}.saveMessageBtn`).toggle(300);
   $(`#${targetId}.cancelChangeBtn`).toggle(300);
@@ -78,15 +96,18 @@ const saveMessageUpdate = (e) => {
   messageText.classList.remove('editable');
   const userId = firebase.auth().currentUser.uid;
   const messageTextContent = messageText.textContent;
-  const newTimestamp = '?';
+  const originalTimestamp = originalMessageObject[0].timestamp;
   const newMessageObject = {
     message: messageTextContent,
     uid: userId,
-    timestamp: newTimestamp,
+    timestamp: originalTimestamp,
   };
-  console.error(newMessageObject);
-  console.error(e.target.id);
-  messagesData.editMessageInDatabase(newMessageObject, e.target.id);
+  messagesData.editMessageInDatabase(newMessageObject, e.target.id)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      getMessages();
+    })
+    .catch(err => console.error('no message delete for you', err));
 };
 
 const showButtonsAndTimestamp = (e) => {
@@ -129,6 +150,10 @@ const addEvents = () => {
   cancelChangeBtns.forEach((button) => {
     button.addEventListener('click', cancelChanges);
   });
+  const deleteBtns = Array.from(document.getElementsByClassName('deleteMessageBtn'));
+  deleteBtns.forEach((button) => {
+    button.addEventListener('click', deleteMessage);
+  });
   document.getElementById('messageSubmitBtn').addEventListener('click', addMessage);
   document.getElementById('messageInputField').addEventListener('keyup', listenForEnter);
 };
@@ -138,6 +163,7 @@ const messagesBuilder = (messagesArray) => {
     if (user) {
       const currentUserId = firebase.auth().currentUser.uid;
       const messagesToSort = messagesArray;
+      setMessages(messagesArray);
       messagesToSort.sort((a, b) => {
         // eslint-disable-next-line no-param-reassign
         a = new Date(a.timestamp);
