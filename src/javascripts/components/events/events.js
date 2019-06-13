@@ -45,6 +45,7 @@ const eventPageDomStringBuilder = (uid) => {
 
 const showEventPage = () => {
   const uId = firebase.auth().currentUser.uid;
+  $('#events-page').removeClass('hide');
   eventPageDomStringBuilder(uId);
   const today = moment().format('YYYY[-]MM[-]DD');
   let domstring = '<button id="add-event-button" class="btn btn-success" data-eventid="submit-new-event" data-toggle="modal" data-target="#eventModal" data-purpose="Add">Add Event</button>';

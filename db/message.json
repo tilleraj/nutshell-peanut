@@ -1,0 +1,20 @@
+{
+  "message1": {
+    "uid": "uidExample1",
+    "id": "messageIdExample1",
+    "message": "What's up pals",
+    "timestamp": "11:00"
+  },
+  "message2": {
+    "uid": "uidExample2",
+    "id": "messageIdExample2",
+    "message": "Not much my friend",
+    "timestamp": "11:30"
+  },
+  "message3": {
+    "uid": "uidExample3",
+    "id": "messageIdExample3",
+    "message": "Just hangin' my man",
+    "timestamp": "20:00"
+  }
+}

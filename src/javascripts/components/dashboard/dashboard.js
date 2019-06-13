@@ -26,7 +26,7 @@ const eventListeners = () => {
   });
 };
 
-const drawDashbaord = () => {
+const drawDashboard = () => {
   let domString = '';
   domString += '<div class="container mt-4">';
   domString += '<div class="row">';
@@ -86,4 +86,4 @@ const drawDashbaord = () => {
   eventListeners();
 };
 
-export default { drawDashbaord };
+export default { drawDashboard };
