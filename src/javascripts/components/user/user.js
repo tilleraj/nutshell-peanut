@@ -5,6 +5,7 @@ import userData from '../../helpers/data/usersData';
 import eventsData from '../../helpers/data/eventsData';
 import articlesData from '../../helpers/data/articlesData';
 import entriesData from '../../helpers/data/entriesData';
+import messagesData from '../../helpers/data/messagesData';
 import './user.scss';
 import util from '../../helpers/util';
 
@@ -54,6 +55,7 @@ const deleteProfile = (e) => {
       }
     })
     .catch(err => console.error('deleteProfile events delete', err));
+  // this will delete articles from the user
   articlesData.getArticlesByUserId(userId)
     .then((articleResponse) => {
       for (let i = 0; i < articleResponse.length; i += 1) {
@@ -68,6 +70,12 @@ const deleteProfile = (e) => {
       }
     });
   // this will delete messages from the user
+  messagesData.getMessagesByUid(userId)
+    .then((messagesResponse) => {
+      for (let i = 0; i < messagesResponse.length; i += 1) {
+        messagesData.deleteMessageFromDatabase(messagesResponse[i].id);
+      }
+    });
   // this deletes the user object from database
   userData.deleteUserFromDatabase(userDataId);
   $('#areYouSureDeleteModal').modal('hide');
