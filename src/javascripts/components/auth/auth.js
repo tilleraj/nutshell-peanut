@@ -13,9 +13,17 @@ const signMeIn = () => {
 // This adds a button to the DOM (appears on page load) that can be clicked to sign in with G
 const authStringBuilder = () => {
   let domString = '';
+  domString += '<div class="container">';
+  domString += '<div class="row">';
+  domString += '<div class="col-12">';
+  domString += '<p id="site-header">NUTSHELL</p>';
+  domString += '<p id="edition">Peanuts Edition</p>';
+  domString += '</div>';
   domString += '<button id="google-auth" class="btn authButton">';
   domString += `<img src=${googleButton} />`;
   domString += '</button>';
+  domString += '</div>';
+  domString += '</div>';
   util.printToDom('auth-div', domString);
   document.getElementById('google-auth').addEventListener('click', signMeIn);
 };

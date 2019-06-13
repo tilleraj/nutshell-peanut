@@ -4,6 +4,12 @@ body {
   background-color: silver;
   font-family: 'Kanit', sans-serif;
 }
+#auth-div {
+  text-align: center;
+  #site-header {
+    font-size: 5em;
+  }
+}
 
 a:hover {
   cursor: pointer;
