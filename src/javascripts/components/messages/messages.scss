@@ -6,6 +6,7 @@ body {
 
 #messages-page {
   height: 100%;
+  font-family: 'Open Sans', sans-serif;
   #messageBoard {
     display: flex;
     flex-wrap: wrap;
@@ -62,7 +63,7 @@ body {
   
   .userName {
     font-size: .8em;
-    margin: 5px;
+    margin: 9px;
     text-align: left;
   }
   

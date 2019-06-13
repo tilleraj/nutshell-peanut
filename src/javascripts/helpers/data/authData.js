@@ -27,12 +27,14 @@ const checkLoginStatus = () => {
       dashboard.drawDashboard();
       $('#dashboard-page').removeClass('hide');
       $('#navbar-links').removeClass('hide');
+      $('#home-nav-button').removeClass('hide');
     } else {
       // If user is logged out, login button is shown, everything else is cleared and hidden
-      $('#auth-div').removeClass('hide');
       $('.page').addClass('hide');
       $('.page').html('');
       $('#navbar-links').addClass('hide');
+      $('#home-nav-button').addClass('hide');
+      $('#auth-div').removeClass('hide');
     }
   });
 };

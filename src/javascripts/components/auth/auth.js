@@ -14,13 +14,17 @@ const signMeIn = () => {
 const authStringBuilder = () => {
   let domString = '';
   domString += '<div class="container">';
-  domString += '<div class="row">';
+  domString += '<div class="row justify-content-center">';
   domString += '<div class="col-12">';
   domString += '<p id="site-header">NUTSHELL</p>';
-  domString += '<p id="edition">Peanuts Edition</p>';
+  domString += '<p id="edition">PEANUTS EDITION</p>';
   domString += '</div>';
-  domString += '<button id="google-auth" class="btn authButton">';
-  domString += `<img src=${googleButton} />`;
+  domString += '<div class="col-12">';
+  domString += '<p id="tagline">"The #1 site on the ENTIRE INTERNET"</p>';
+  domString += '<p>- The Internet</p>';
+  domString += '</div>';
+  domString += '<button id="google-auth" class="btn authButton col-3">';
+  domString += `<img id="google-img" src=${googleButton} />`;
   domString += '</button>';
   domString += '</div>';
   domString += '</div>';
