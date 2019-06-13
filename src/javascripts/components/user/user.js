@@ -14,6 +14,8 @@ const displayNameInNavbar = (userId) => {
       $('.user-button').html(`<img id="user-navbar-avatar" src="${user[0].image}"></img> ${user[0].name}`);
       $('#edit-profile-nav-button').attr('data-userobjectid', `${user[0].id}`);
       $('#edit-profile-nav-button').attr('data-userid', `${user[0].uid}`);
+      $('#edit-profile-nav-button').attr('data-username', `${user[0].name}`);
+      $('#edit-profile-nav-button').attr('data-avatar', `${user[0].image}`);
     })
     .catch(err => console.error('can not display name in navbar', err));
 };
@@ -60,7 +62,14 @@ const buildEditProfileModal = (e) => {
   const button = $(e.target);
   const userObjectId = button.data('userobjectid');
   const userId = button.data('userid');
+  const username = button.data('username');
   let domstring = '';
+  domstring += '<div class="input-group mb-3">';
+  domstring += '<div class="input-group-prepend">';
+  domstring += '<span class="input-group-text" id="basic-addon1">Username</span>';
+  domstring += '</div>';
+  domstring += `<input type="text" class="form-control" value="${username}" aria-label="Username" aria-describedby="basic-addon1">`;
+  domstring += '</div>';
   domstring += `<button id="delete-profile" class="btn btn-danger" data-userobjectid="${userObjectId}"`;
   domstring += `data-userid="${userId}" data-toggle="modal" data-target="#areYouSureDeleteModal">Delete Profile</button>`;
   util.printToDom('edit-profile-modal-body', domstring);
