@@ -62,8 +62,9 @@ const listenForEnter = (e) => {
 const listenForSaveEnter = (e) => {
   if (e.keyCode === 13) {
     e.preventDefault();
-    const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
-    selectedEditBtn.click();
+    const messageId = `${e.target.id}message`;
+    const selectedSaveBtn = document.getElementById(messageId).getElementsByClassName('saveMessageBtn')[0];
+    selectedSaveBtn.click();
   }
 };
 
@@ -128,12 +129,6 @@ const cancelChanges = (e) => {
 };
 
 const addEvents = () => {
-  // The code below is not working for hiding and showing timestamps!
-  // const timestamps = document.getElementsByClassName('full-message-div');
-  // const timestampsArray = Array.from(timestamps);
-  // timestampsArray.forEach((timestamp) => {
-  //   timestamp.addEventListener('mouseover', timestamp.classList.remove('hide'));
-  // });
   const messageEditBtns = Array.from(document.getElementsByClassName('editMessageBtn'));
   messageEditBtns.forEach((button) => {
     button.addEventListener('click', editMessage);
@@ -185,7 +180,7 @@ const messagesBuilder = (messagesArray) => {
         domString += `<div class="col-12 text-center ${userType}-message">`;
         domString += `<div class="full-message-div" id="${message.id}">`;
         domString += `<p class="userName">${message.userName}</p>`;
-        domString += `<span class="message messageText ${userType}">${message.message}</span>`;
+        domString += `<span id="${message.id}message" class="message messageText ${userType}">${message.message}</span>`;
         if (message.uid === currentUserId) {
           domString += `<button id="${message.id}" class="btn btn-outline-primary editMessageBtn hide">Edit</button>`;
           domString += `<button id="${message.id}" class="btn btn-outline-primary saveMessageBtn hide">Save</button>`;
