@@ -23,9 +23,17 @@ const authStringBuilder = () => {
   domString += '<p id="tagline">"The #1 site on the ENTIRE INTERNET"</p>';
   domString += '<p>- The Internet</p>';
   domString += '</div>';
-  domString += '<button id="google-auth" class="btn authButton col-3">';
+  domString += '<div id="snoopy-div" class="col-12 col-md-4">';
+  domString += '<img id="snoopy-left" src="https://www.stickpng.com/assets/images/580b57fbd9996e24bc43bd47.png">';
+  domString += '</div>';
+  domString += '<div class="col-12 col-md-4">';
+  domString += '<button id="google-auth" class="btn authButton">';
   domString += `<img id="google-img" src=${googleButton} />`;
   domString += '</button>';
+  domString += '</div>';
+  domString += '<div id="snoopy-div" class="col-12 col-md-4">';
+  domString += '<img id="snoopy" src="https://www.stickpng.com/assets/images/580b57fbd9996e24bc43bd47.png">';
+  domString += '</div>';
   domString += '</div>';
   domString += '</div>';
   util.printToDom('auth-div', domString);
