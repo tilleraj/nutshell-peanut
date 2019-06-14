@@ -29,9 +29,13 @@ const eventPageDomStringBuilder = (uid) => {
         const displayDate = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY');
         const displayTime = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('h[:]mm a');
         domstring += '<tr class="event-row">';
-        domstring += `<td id="event-title">${event.title}</td>`;
-        domstring += `<td id="event-date">${displayDate}</td>`;
-        domstring += `<td id="event-time">${displayTime}</td>`;
+        if (event.link === '') {
+          domstring += `<td id="event${event.id}-title">${event.title}</td>`;
+        } else {
+          domstring += `<td id="event${event.id}-title"><a target="_blank" href="${event.link}">${event.title}</a></td>`;
+        }
+        domstring += `<td id="event${event.id}-date">${displayDate}</td>`;
+        domstring += `<td id="event${event.id}-time">${displayTime}</td>`;
         domstring += `<td><button type="button" id="edit_${event.id}" data-toggle="modal"`;
         domstring += `data-eventid="${event.id}" data-purpose="Edit" data-target="#eventModal" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
         domstring += `<button type="button" id="delete_${event.id}" class="btn btn-danger event-delete-button">X</button></td>`;
@@ -73,6 +77,9 @@ const showEventPage = () => {
   domstring += '<label class="col-md-12" for="event-time">Time: </label>';
   domstring += '<input class="justify-self-center" type="time" id="event-time" name="event-time" value="16:20" required></input>';
   domstring += '</div>';
+  domstring += '<label for="event-link">Event Link:</label>';
+  domstring += '<input type="text" class="form-control" id="event-link" name="event-link" placeholder="www.partypartyparty.com"></input>';
+  domstring += '<p>(Optional)</p>';
   domstring += '</div>';
   domstring += '</div>';
   domstring += '<div class="modal-footer">';
@@ -97,6 +104,7 @@ const addEventToDatabase = (e) => {
     title: $('#event-name')[0].value,
     dateTime: newDateTime,
     uid: uId,
+    link: $('#event-link')[0].value,
   };
   eventsData.addEventToDatabase(newEvent)
     .then(() => {
@@ -104,6 +112,7 @@ const addEventToDatabase = (e) => {
       $('#event-name')[0].value = '';
       $('#event-time')[0].value = '16:20';
       $('#event-date')[0].value = moment().format('YYYY[-]MM[-]DD');
+      $('#event-link')[0].value = '';
     })
     .catch(err => console.error('wont add event', err));
 };
@@ -129,6 +138,7 @@ const editEventFromDatabase = (e) => {
     title: $('#event-name')[0].value,
     dateTime: newDateTime,
     uid: userId,
+    link: $('#event-link')[0].value,
   };
   eventsData.editEventOnDatabase(newEventObj, eventId)
     .then(() => {
@@ -142,11 +152,15 @@ const addOrEditModalDisplay = (e) => {
   const modalPurpose = button.data('purpose');
   let eventName = '';
   let eventTime = '16:20';
+  let eventLink = '';
   let eventDate = moment().format('YYYY[-]MM[-]DD');
   const eventId = button.data('eventid');
   if (modalPurpose === 'Edit') {
     eventName = button.parent().prev().prev().prev()
       .text();
+    eventLink = button.parent().prev().prev().prev()
+      .children()
+      .attr('href');
     eventTime = button.parent().prev().text();
     eventDate = button.parent().prev().prev().text();
     eventDate = moment(eventDate, 'MMMM Do[,] YYYY').format('YYYY[-]MM[-]DD');
@@ -155,6 +169,7 @@ const addOrEditModalDisplay = (e) => {
   const modal = $('#eventModal');
   modal.find('.modal-title').text(`${modalPurpose} an Event`);
   modal.find('#event-name').val(eventName);
+  modal.find('#event-link').val(eventLink);
   modal.find('#event-date').val(eventDate);
   modal.find('#event-time').val(eventTime);
   modal.find('.change-button').text(`Save ${modalPurpose}ed Event`);
