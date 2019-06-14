@@ -2,8 +2,12 @@
 
 body {
   background-color: silver;
+  font-family: 'Kanit', sans-serif;
 }
 
+a:hover {
+  cursor: pointer;
+}
 .hide {
   display: none;
 }

@@ -5,13 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Kanit|Open+Sans&display=swap" rel="stylesheet">
   <title>Document</title>
 </head>
 
 <body>
   <div id="navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a id="home-nav-button" class="navbar-brand" href="#">Nutshell</a>
+      <a id="home-nav-button" data-page="dashboard-page" class="navbar-brand link" href="#">Nutshell</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,24 +20,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto hide" id="navbar-links">
           <li class="nav-item">
-            <a id="dashboard-nav-button" class="nav-link">Home</a>
+            <a id="events-nav-button" data-page="events-page" class="link nav-link events-nav-button">Events</a>
           </li>
           <li class="nav-item">
-            <a id="events-nav-button" class="nav-link">Events</a>
+            <a id="messages-nav-button" data-page="messages-page" class="link nav-link messages-nav-button">Messages</a>
           </li>
           <li class="nav-item">
-            <a id="messages-nav-button" class="nav-link">Messages</a>
+            <a id="diary-nav-button" data-page="diary-page" class="link nav-link diary-nav-button">Diary</a>
           </li>
           <li class="nav-item">
-            <a id="diary-nav-button" class="nav-link">Diary</a>
-          </li>
-          <li class="nav-item">
-            <a id="news-nav-button" class="nav-link">News</a>
+            <a id="news-nav-button" data-page="news-page" class="link nav-link news-nav-button">News</a>
           </li>
           <li class="nav-item dropdown">
             <a class="dropdown-toggle user-button nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" >Edit Profile</a>
+              <a id="edit-profile-nav-button" class="dropdown-item">Edit Profile</a>
               <a id="logout-nav-button" class="dropdown-item">Logout</a>
             </div>
           </li>
@@ -74,8 +72,45 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Edit Your Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="edit-profile-modal-body" class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="user-save-updates" class="btn btn-success">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="areYouSureDeleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSureDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="areYouSureDeleteModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="are-you-sure-body" class="modal-body">
+            <p>Are you sure you want to delete your profile? You can NOT undue this</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="are-you-sure-delete" class="btn btn-danger">DELETE</button>
+          </div>
+        </div>
+      </div>
+    </div>
   <div id="auth-div"></div>
-  <div id="all-pages" class="hide">
+  <div id="all-pages">
     <div id="dashboard-page" class="page hide"></div>
     <div id="messages-page" class="page hide">
       <p>Messages</p>

@@ -22,7 +22,7 @@ const init = () => {
   dashboard.drawDashboard();
   eventsPage.eventPageButtonHandlers();
   diaryPage.entryPageButtonHandlers();
-  messagesPage.getMessages();
+  messagesPage.messagePageButtonHandlers();
   newsPage.newsPageButtonHandlers();
   userStuff.userEventHandlers();
 };
