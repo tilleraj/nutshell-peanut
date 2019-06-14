@@ -19,6 +19,9 @@ body {
     }
   }
   #snoopy-left {
+  display: none;
+  /* large screens */
+  @media all and (min-width: 768px) {
     display: block;
     width: 100%;
     -moz-transform: scaleX(-1);
@@ -27,7 +30,7 @@ body {
     transform: scaleX(-1);
     filter: FlipH;
     -ms-filter: "FlipH";
-
+    }
   }
   #snoopy {
     width: 100%;
