@@ -8,6 +8,7 @@ import articlesData from '../../helpers/data/articlesData';
 import './articles.scss';
 
 const articlesBuilder = () => {
+  $('.navbar-collapse').collapse('hide');
   articlesData.getArticlesByUserId(firebase.auth().currentUser.uid)
     .then((articlesArray) => {
       let domString = '';

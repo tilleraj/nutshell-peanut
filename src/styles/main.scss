@@ -4,6 +4,41 @@ body {
   background-color: silver;
   font-family: 'Kanit', sans-serif;
 }
+#auth-div {
+  text-align: center;
+  #site-header {
+    font-size: 5em;
+    text-shadow: 5px 5px 0px slategray;
+  }
+  #edition {
+    font-size: 3em;
+    font-family: 'Pangolin', cursive;
+  }
+  #google-auth{
+    #google-img {
+      border: 5px solid black;
+      box-shadow: 5px 5px 10px black;
+      width: 100%;
+    }
+  }
+  #snoopy-left {
+  display: none;
+  /* large screens */
+  @media all and (min-width: 768px) {
+    display: block;
+    width: 100%;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    }
+  }
+  #snoopy {
+    width: 100%;
+  }
+}
 
 a:hover {
   cursor: pointer;

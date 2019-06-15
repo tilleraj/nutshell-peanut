@@ -154,6 +154,7 @@ const addEvents = () => {
 };
 
 const messagesBuilder = (messagesArray) => {
+  $('.navbar-collapse').collapse('hide');
   const currentUserId = firebase.auth().currentUser.uid;
   const messagesToSort = messagesArray;
   setMessages(messagesArray);

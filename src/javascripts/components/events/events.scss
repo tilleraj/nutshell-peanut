@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-#events-table {
+table {
   margin: auto;
   text-align: center;
   width: 95%;
@@ -25,7 +25,16 @@
     padding-top: 1em;
     padding-bottom: 1em;
   }
+  #events-header {
+    background-color:  lightgreen;
+  }
+  #past-events-header {
+    background-color: lightcoral;
+  }
   .event-row:hover {
     background-color: #ddd;
+  }
+  .past-event-edit {
+    visibility: hidden;
   }
 }
