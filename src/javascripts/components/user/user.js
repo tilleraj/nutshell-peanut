@@ -9,6 +9,7 @@ import messagesData from '../../helpers/data/messagesData';
 import './user.scss';
 import util from '../../helpers/util';
 
+// this should pull from avatars.json but i'm too lazy to do it right now
 const avatars = [
   'https://image.flaticon.com/icons/svg/145/145847.svg',
   'https://image.flaticon.com/icons/svg/145/145850.svg',
@@ -20,6 +21,7 @@ const avatars = [
   'https://image.flaticon.com/icons/svg/145/145844.svg',
 ];
 
+// this highlights whatever avatar was clicked and puts that image in the main box of the edit profile modal
 const selectAvatar = (e) => {
   const updatedAvatars = $('.avatar-image');
   for (let i = 0; i < updatedAvatars.length; i += 1) {
@@ -30,6 +32,7 @@ const selectAvatar = (e) => {
   $('#edit-avatar-modal').attr('src', newAvatar);
 };
 
+// does exactly what you would think, takes the username and avatar and displays it in the top of the navbar
 const displayNameInNavbar = (userId) => {
   userData.getUserInfoByUserId(userId)
     .then((user) => {
@@ -38,11 +41,13 @@ const displayNameInNavbar = (userId) => {
     .catch(err => console.error('can not display name in navbar', err));
 };
 
+// logs...out...the...user...and resets the user button
 const logoutUser = () => {
   firebase.auth().signOut();
   $('.user-button').html('');
 };
 
+// deletes EVERYTHING related to the user from the database
 const deleteProfile = (e) => {
   const button = $(e.target);
   const userDataId = button.data('userobjectid');
@@ -81,8 +86,10 @@ const deleteProfile = (e) => {
   $('#areYouSureDeleteModal').modal('hide');
   $('#editProfileModal').modal('hide');
   logoutUser();
+  // bye bitch
 };
 
+// this will build out the body of the editProfileModal
 const buildEditProfileModal = () => {
   const usersId = firebase.auth().currentUser.uid;
   userData.getUserInfoByUserId(usersId)
@@ -123,6 +130,7 @@ const buildEditProfileModal = () => {
     .catch();
 };
 
+// after the user changes their profile info this changes their object in the database
 const updatesChanges = () => {
   const userObjId = $('#userObjDiv').data('userobjectid');
   const updatedUsername = $('#update-username').val();
@@ -141,6 +149,7 @@ const updatesChanges = () => {
     .catch();
 };
 
+// all the fun user event handlers
 const userEventHandlers = () => {
   $('#logout-nav-button').on('click', logoutUser);
   $('#edit-profile-nav-button').on('click', buildEditProfileModal);

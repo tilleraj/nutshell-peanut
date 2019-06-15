@@ -20,8 +20,8 @@ const eventPageDomStringBuilder = (uid) => {
         return aDate < bDate ? -1 : aDate > bDate ? 1 : 0;
       });
       let domstring = '';
-      domstring += '<table id="events-table">';
-      domstring += '<thead>';
+      domstring += '<table id="events-table" class="mb-5">';
+      domstring += '<thead id="events-header">';
       domstring += '<tr>';
       domstring += '<th colspan="4">Events</th>';
       domstring += '</tr>';
@@ -31,19 +31,49 @@ const eventPageDomStringBuilder = (uid) => {
         // reformats the dates to look better on display
         const displayDate = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY');
         const displayTime = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('h[:]mm a');
-        domstring += '<tr class="event-row">';
-        // checks to see if a link exists, if it does then it makes the title an 'a' tag
-        if (event.link === '') {
-          domstring += `<td id="event${event.id}-title">${event.title}</td>`;
-        } else {
-          domstring += `<td id="event${event.id}-title"><a target="_blank" href="${event.link}">${event.title}</a></td>`;
+        if (moment(event.dateTime) > moment()) {
+          domstring += '<tr class="event-row">';
+          // checks to see if a link exists, if it does then it makes the title an 'a' tag
+          if (event.link === '') {
+            domstring += `<td id="event${event.id}-title">${event.title}</td>`;
+          } else {
+            domstring += `<td id="event${event.id}-title"><a target="_blank" href="${event.link}">${event.title}</a></td>`;
+          }
+          domstring += `<td id="event${event.id}-date">${displayDate}</td>`;
+          domstring += `<td id="event${event.id}-time">${displayTime}</td>`;
+          domstring += `<td><button type="button" id="edit_${event.id}" data-toggle="modal"`;
+          domstring += `data-eventid="${event.id}" data-purpose="Edit" data-target="#eventModal" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
+          domstring += `<button type="button" id="delete_${event.id}" class="btn btn-danger event-delete-button">X</button></td>`;
+          domstring += '</tr>';
         }
-        domstring += `<td id="event${event.id}-date">${displayDate}</td>`;
-        domstring += `<td id="event${event.id}-time">${displayTime}</td>`;
-        domstring += `<td><button type="button" id="edit_${event.id}" data-toggle="modal"`;
-        domstring += `data-eventid="${event.id}" data-purpose="Edit" data-target="#eventModal" class="mr-3 btn btn-info event-edit-button">Edit</button>`;
-        domstring += `<button type="button" id="delete_${event.id}" class="btn btn-danger event-delete-button">X</button></td>`;
-        domstring += '</tr>';
+      });
+      domstring += '</tbody>';
+      domstring += '</table>';
+      domstring += '<table id="past-events-table">';
+      domstring += '<thead id="past-events-header">';
+      domstring += '<tr>';
+      domstring += '<th colspan="4">Past Events</th>';
+      domstring += '</tr>';
+      domstring += '</thead>';
+      domstring += '<tbody>';
+      eventsToSort.forEach((event) => {
+        // reformats the dates to look better on display
+        const displayDate = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY');
+        const displayTime = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('h[:]mm a');
+        if (moment(event.dateTime) < moment()) {
+          domstring += '<tr class="event-row">';
+          // checks to see if a link exists, if it does then it makes the title an 'a' tag
+          if (event.link === '') {
+            domstring += `<td id="event${event.id}-title">${event.title}</td>`;
+          } else {
+            domstring += `<td id="event${event.id}-title"><a target="_blank" href="${event.link}">${event.title}</a></td>`;
+          }
+          domstring += `<td id="event${event.id}-date">${displayDate}</td>`;
+          domstring += `<td id="event${event.id}-time">${displayTime}</td>`;
+          domstring += '<td><button type="button" class="mr-3 btn past-event-edit">Edit</button>';
+          domstring += `<button type="button" id="delete_${event.id}" class="btn btn-danger event-delete-button">X</button></td>`;
+          domstring += '</tr>';
+        }
       });
       domstring += '</tbody>';
       domstring += '</table>';
@@ -57,6 +87,7 @@ const showEventPage = () => {
   $('#events-page').removeClass('hide');
   eventPageDomStringBuilder(uId);
   const today = moment().format('YYYY[-]MM[-]DD');
+  const thisTime = moment().format('HH[:]mm');
   let domstring = '<button id="add-event-button" class="btn btn-success" data-eventid="submit-new-event" data-toggle="modal" data-target="#eventModal" data-purpose="Add">Add Event</button>';
   domstring += '<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">';
   domstring += '<div class="modal-dialog" role="document">';
@@ -80,7 +111,7 @@ const showEventPage = () => {
   domstring += '</div>';
   domstring += '<div class="form-group justify-content-center col-md-6">';
   domstring += '<label class="col-md-12" for="event-time">Time: </label>';
-  domstring += '<input class="justify-self-center" type="time" id="event-time" name="event-time" value="16:20" required></input>';
+  domstring += `<input class="justify-self-center" type="time" id="event-time" name="event-time" value="${thisTime}" required></input>`;
   domstring += '</div>';
   domstring += '<label for="event-link">Event Link:</label>';
   domstring += '<input type="text" class="form-control" id="event-link" name="event-link" placeholder="www.partypartyparty.com"></input>';
@@ -117,7 +148,7 @@ const addEventToDatabase = (e) => {
       // builds the event table and resets the values in the modal
       eventPageDomStringBuilder(uId);
       $('#event-name')[0].value = '';
-      $('#event-time')[0].value = '16:20';
+      $('#event-time')[0].value = moment().format('HH[:]mm');
       $('#event-date')[0].value = moment().format('YYYY[-]MM[-]DD');
       $('#event-link')[0].value = '';
     })
@@ -161,7 +192,7 @@ const addOrEditModalDisplay = (e) => {
   const button = $(e.relatedTarget);
   const modalPurpose = button.data('purpose');
   let eventName = '';
-  let eventTime = '16:20';
+  let eventTime = moment().format('HH[:]mm');
   let eventLink = '';
   let eventDate = moment().format('YYYY[-]MM[-]DD');
   const eventId = button.data('eventid');
