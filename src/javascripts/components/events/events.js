@@ -7,6 +7,8 @@ import './events.scss';
 
 const moment = require('moment');
 
+$('.toast').toast();
+
 // builds all the events!
 const eventPageDomStringBuilder = (uid) => {
   eventsData.retrieveEventsByUserId(uid)
@@ -114,7 +116,7 @@ const showEventPage = () => {
   domstring += `<input class="justify-self-center" type="time" id="event-time" name="event-time" value="${thisTime}" required></input>`;
   domstring += '</div>';
   domstring += '<label for="event-link">Event Link:</label>';
-  domstring += '<input type="text" class="form-control" id="event-link" name="event-link" placeholder="www.partypartyparty.com"></input>';
+  domstring += '<input type="url" class="form-control" id="event-link" name="event-link" placeholder="www.partypartyparty.com"></input>';
   domstring += '<p>(Optional)</p>';
   domstring += '</div>';
   domstring += '</div>';
