@@ -2,16 +2,19 @@
   "event1": {
     "uid": "420blazeit",
     "title": "Danksgiving",
-    "dateTime": "2019-11-27T11:00"
+    "dateTime": "2019-11-27T11:00",
+    "link": ""
   },
   "event2": {
     "uid": "420blazeit",
     "title": "Danksgiving 2",
-    "dateTime": "2020-11-16T11:30"
+    "dateTime": "2020-11-16T11:30",
+    "link": ""
   },
   "event3": {
     "uid": "GregsId",
     "title": "Greg's Birthday Party",
-    "dateTime": "2019-10-06T20:00"
+    "dateTime": "2019-10-06T20:00",
+    "link": ""
   }
 }

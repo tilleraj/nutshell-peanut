@@ -62,8 +62,9 @@ const listenForEnter = (e) => {
 const listenForSaveEnter = (e) => {
   if (e.keyCode === 13) {
     e.preventDefault();
-    const selectedEditBtn = document.getElementById(e.target.id).getElementsByClassName('editMessageBtn')[0];
-    selectedEditBtn.click();
+    const messageId = `${e.target.id}message`;
+    const selectedSaveBtn = document.getElementById(messageId).getElementsByClassName('saveMessageBtn')[0];
+    selectedSaveBtn.click();
   }
 };
 
@@ -128,12 +129,6 @@ const cancelChanges = (e) => {
 };
 
 const addEvents = () => {
-  // The code below is not working for hiding and showing timestamps!
-  // const timestamps = document.getElementsByClassName('full-message-div');
-  // const timestampsArray = Array.from(timestamps);
-  // timestampsArray.forEach((timestamp) => {
-  //   timestamp.addEventListener('mouseover', timestamp.classList.remove('hide'));
-  // });
   const messageEditBtns = Array.from(document.getElementsByClassName('editMessageBtn'));
   messageEditBtns.forEach((button) => {
     button.addEventListener('click', editMessage);
@@ -159,6 +154,7 @@ const addEvents = () => {
 };
 
 const messagesBuilder = (messagesArray) => {
+  $('.navbar-collapse').collapse('hide');
   const currentUserId = firebase.auth().currentUser.uid;
   const messagesToSort = messagesArray;
   setMessages(messagesArray);
@@ -205,7 +201,6 @@ const messagesBuilder = (messagesArray) => {
   util.printToDom('messages-page', domString);
   addEvents();
   scrollPosition();
-  // scrollPosition();
 };
 
 const getMessages = () => {

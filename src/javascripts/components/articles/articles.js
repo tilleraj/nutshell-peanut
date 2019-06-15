@@ -15,6 +15,7 @@ const toggleEdit = (e) => {
 };
 
 const articlesBuilder = () => {
+  $('.navbar-collapse').collapse('hide');
   articlesData.getArticlesByUserId(firebase.auth().currentUser.uid)
     .then((articlesArray) => {
       let domString = '';

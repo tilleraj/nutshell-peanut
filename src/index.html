@@ -5,14 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=Kanit|Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Kanit|Open+Sans|Pangolin&display=swap" rel="stylesheet">
   <title>Nutshell</title>
 </head>
 
 <body>
   <div id="navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a id="home-nav-button" data-page="dashboard-page" class="navbar-brand link" href="#">Nutshell</a>
+      <a id="home-nav-button" data-page="dashboard-page" class="navbar-brand link hide" href="#">Nutshell</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -42,6 +42,7 @@
       </div>
     </nav>
   </div>
+  <!-- This modal loads when a NEW USER logs in and creates their new user identiy -->
   <div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -72,6 +73,7 @@
       </div>
     </div>
   </div>
+  <!-- This is the base editProfileModal, the body is built out later -->
   <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -90,17 +92,19 @@
       </div>
     </div>
   </div>
+  <!-- this is the final profile delete modal that spawns from the delete profile button in the edit profile modal -->
   <div class="modal fade" id="areYouSureDeleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSureDeleteModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="areYouSureDeleteModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="areYouSureDeleteModalLabel">Don't Go!</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div id="are-you-sure-body" class="modal-body">
-            <p>Are you sure you want to delete your profile? You can NOT undue this</p>
+            <p>Are you sure you want to delete your profile? You can NOT undo this</p>
+            <p>All of your information will be gone forever</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -113,16 +117,12 @@
   <div id="all-pages">
     <div id="dashboard-page" class="page hide"></div>
     <div id="messages-page" class="page hide">
-      <p>Messages</p>
     </div>
     <div id="events-page" class="page hide">
-      <p>Events</p>
     </div>
     <div id="news-page" class="page hide">
-      <p>News</p>
     </div>
     <div id="diary-page" class="page hide">
-      <p>Diary</p>
     </div>
   </div>
 </body>
