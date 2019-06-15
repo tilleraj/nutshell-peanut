@@ -6,35 +6,35 @@ This is a personal website designed to keep track of four aspects of your life. 
 ## Screenshots
 * Landing Page
 
-![Landing Page](.assets/screenshots/landing_page.png)
+![Landing Page](./assets/screenshots/landing_page.png)
 
 * Dashboard
 
-![Dashboard](.assets/screenshots/dashboard.png)
+![Dashboard](./assets/screenshots/dashboard.png)
 
 * Events Page
 
-![Events Page](.assets/screenshots/events.png)
+![Events Page](./assets/screenshots/events.png)
 
 * Messages Page
 
-![Messages](.assets/screenshots/messages.png)
+![Messages](./assets/screenshots/messages.png)
 
 * Diary Page
 
-![Diary](.assets/screenshots/diary.png)
+![Diary](./assets/screenshots/diary.png)
 
 * News Page
 
-![News](.assets/screenshots/news.png)
+![News](./assets/screenshots/news.png)
 
 * Edit User Page
 
-![Edit User](.assets/screenshots/edit_user.png)
+![Edit User](./assets/screenshots/edit_user.png)
 
 * Add Event
 
-![Add Event](.assets/screenshots/add_event.png)
+![Add Event](./assets/screenshots/add_event.png)
 
 ## Installation Instructions
 * Clone down this repo
