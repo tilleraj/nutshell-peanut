@@ -7,9 +7,11 @@ import './events.scss';
 
 const moment = require('moment');
 
+// builds all the events!
 const eventPageDomStringBuilder = (uid) => {
   eventsData.retrieveEventsByUserId(uid)
     .then((events) => {
+      // sorts the events by time and date
       const eventsToSort = events;
       eventsToSort.sort((a, b) => {
         const aDate = a.dateTime;
@@ -26,9 +28,11 @@ const eventPageDomStringBuilder = (uid) => {
       domstring += '</thead>';
       domstring += '<tbody>';
       eventsToSort.forEach((event) => {
+        // reformats the dates to look better on display
         const displayDate = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY');
         const displayTime = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('h[:]mm a');
         domstring += '<tr class="event-row">';
+        // checks to see if a link exists, if it does then it makes the title an 'a' tag
         if (event.link === '') {
           domstring += `<td id="event${event.id}-title">${event.title}</td>`;
         } else {
@@ -47,6 +51,7 @@ const eventPageDomStringBuilder = (uid) => {
     }).catch(err => console.error('no events to show', err));
 };
 
+// builds the base page and button to add events and the modal it calls
 const showEventPage = () => {
   const uId = firebase.auth().currentUser.uid;
   $('#events-page').removeClass('hide');
@@ -94,6 +99,7 @@ const showEventPage = () => {
   util.printToDom('events-page', domstring);
 };
 
+// adds events from the eventModal
 const addEventToDatabase = (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -108,6 +114,7 @@ const addEventToDatabase = (e) => {
   };
   eventsData.addEventToDatabase(newEvent)
     .then(() => {
+      // builds the event table and resets the values in the modal
       eventPageDomStringBuilder(uId);
       $('#event-name')[0].value = '';
       $('#event-time')[0].value = '16:20';
@@ -117,6 +124,7 @@ const addEventToDatabase = (e) => {
     .catch(err => console.error('wont add event', err));
 };
 
+// deletes the selected event from firebase
 const deleteEventFromDatabase = (e) => {
   const userId = firebase.auth().currentUser.uid;
   const eventId = e.target.id.split(/_(.+)/)[1];
@@ -127,6 +135,7 @@ const deleteEventFromDatabase = (e) => {
     .catch(err => console.error('problem deleting event', err));
 };
 
+// edits the event from the editEventModal
 const editEventFromDatabase = (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -147,6 +156,7 @@ const editEventFromDatabase = (e) => {
     .catch(err => console.error('problem editing event', err));
 };
 
+// there is only one modal, this uses data attributes to build the modal to either edit or add
 const addOrEditModalDisplay = (e) => {
   const button = $(e.relatedTarget);
   const modalPurpose = button.data('purpose');
@@ -178,6 +188,7 @@ const addOrEditModalDisplay = (e) => {
   modal.find('form').attr('id', modalPurpose);
 };
 
+// all the fun event page button handlers
 const eventPageButtonHandlers = () => {
   $('body').on('click', '.events-nav-button', showEventPage);
   $('#events-page').on('show.bs.modal', '#eventModal', addOrEditModalDisplay);
