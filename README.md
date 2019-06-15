@@ -6,31 +6,35 @@ This is a personal website designed to keep track of four aspects of your life. 
 ## Screenshots
 * Landing Page
 
-![alt text](https://i.ibb.co/cC9P6WX/CT-home-Page.png[/img])
+![Landing Page](.assets/screenshots/landing_page.png)
 
 * Dashboard
 
-![alt text](https://i.ibb.co/SNqN18z/CT-dark-Mode.png[/img])
+![Dashboard](.assets/screenshots/dashboard.png)
 
 * Events Page
 
-![alt text](https://i.ibb.co/5LdH9XQ/CT-Thumbs.png)
+![Events Page](.assets/screenshots/events.png)
 
 * Messages Page
 
-![alt text](https://i.ibb.co/BVds47B/CT-clear-Mode.png[/img])
+![Messages](.assets/screenshots/messages.png)
 
 * Diary Page
 
-![alt text](https://i.ibb.co/Ph2P9Vk/CT-Edit.png[/img])
+![Diary](.assets/screenshots/diary.png)
 
 * News Page
 
-![alt text](https://i.ibb.co/0K2V9Q6/CT-large-Mode.png[/img])
+![News](.assets/screenshots/news.png)
 
 * Edit User Page
 
-![alt text](https://i.ibb.co/8XHTJJr/CT-multi-User.png)
+![Edit User](.assets/screenshots/edit_user.png)
+
+* Add Event
+
+![Add Event](.assets/screenshots/add_event.png)
 
 ## Installation Instructions
 * Clone down this repo
