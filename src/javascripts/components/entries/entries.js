@@ -16,9 +16,6 @@ const setUserEntries = (newArray) => {
 
 const entriesBuilder = () => {
   $('.navbar-collapse').collapse('hide');
-  // below jquery selectors will be removed after testing branch
-  // $('#diary-page').removeClass('hide');
-  // $('#diary-nav-button').addClass('hide');
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {
       const entriesToSort = entriesArray;
@@ -42,10 +39,10 @@ const entriesBuilder = () => {
         domString += `<h4>${moment(entry.date, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY')}</h4>`;
         domString += `<p>${entry.entry}</p>`;
         domString += '<div class="d-flex justify-content-end">';
-        domString += '<button class="btn btn-primary col-2 saveEntryButton hide">Save</button>';
-        domString += '<button class="btn btn-primary col-2 editEntryButton">Edit</button>';
-        domString += '<button class="btn btn-danger col-2 deleteEntryButton">Delete</button>';
-        domString += '<button class="btn btn-danger col-2 cancelEntryButton hide">Cancel</button>';
+        domString += '<button class="btn btn-primary col-auto saveEntryButton hide">Save</button>';
+        domString += '<button class="btn btn-info col-auto editEntryButton">Edit</button>';
+        domString += '<button class="btn btn-danger col-auto ml-3 deleteEntryButton">X</button>';
+        domString += '<button class="btn btn-danger col-auto ml-3 cancelEntryButton hide">Cancel</button>';
         domString += '</div>';
         domString += '</div>';
         domString += '</div>';
@@ -101,8 +98,8 @@ const addEntryToDOM = () => {
   newEntry += '<h2 id="newDiaryTitle" class="editable" contenteditable="true">Entry Title</h2>';
   newEntry += '<p id="newDiaryEntry" class="editable" contenteditable="true">Write Your Entry Here</p>';
   newEntry += '<div class="d-flex justify-content-end">';
-  newEntry += '<button id="addNewEntry" class="btn btn-primary col-2">Save</button>';
-  newEntry += '<button id="cancelNewEntry" class="btn btn-danger col-2">Cancel</button>';
+  newEntry += '<button id="addNewEntry" class="btn btn-primary col-auto">Save</button>';
+  newEntry += '<button id="cancelNewEntry" class="btn btn-danger col-auto ml-3 ">Cancel</button>';
   newEntry += '</div>';
   newEntry += '</div>';
   newEntry += '</div>';

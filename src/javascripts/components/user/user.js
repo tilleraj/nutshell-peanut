@@ -115,7 +115,7 @@ const buildEditProfileModal = () => {
       domstring += '</div>';
       domstring += '</div>';
       domstring += '</div>';
-      domstring += '<div class="input-group mb-3">';
+      domstring += '<div id="update-username-div" class="input-group mb-3">';
       domstring += '<div class="input-group-prepend">';
       domstring += '<span class="input-group-text" id="basic-addon1">Username</span>';
       domstring += '</div>';
