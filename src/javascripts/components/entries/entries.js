@@ -138,7 +138,7 @@ const deleteEntryFromDatabase = (e) => {
 };
 
 const entryPageButtonHandlers = () => {
-  document.getElementById('diary-nav-button').addEventListener('click', entriesBuilder);
+  $('body').on('click', '.diary-nav-button', entriesBuilder);
   $('body').on('click', '.editEntryButton', updateEntryToDom);
   $('body').on('click', '#addNewEntryButton', addEntryToDOM);
   $('body').on('click', '#cancelNewEntry', entriesBuilder);

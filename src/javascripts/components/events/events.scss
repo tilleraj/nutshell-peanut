@@ -1,3 +1,11 @@
+#add-event-button {
+  display: block;
+  margin: auto;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  width: 10em;
+}
+
 #events-new-form {
   text-align: center;
 }
@@ -11,5 +19,13 @@
   }
   @media (min-width: 992px) {
     width: 60%;
+  }
+  th, td {
+    border-bottom: 1px solid #ddd;
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  .event-row:hover {
+    background-color: #ddd;
   }
 }

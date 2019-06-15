@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import $ from 'jquery';
 import util from '../../helpers/util';
-import userData from '../../helpers/data/userData';
+import userData from '../../helpers/data/usersData';
 import userStuff from '../user/user';
 import './newUser.scss';
 
@@ -122,4 +122,4 @@ const newUserButtonHandlers = () => {
   $('#newUserModal').on('click', '#save-new-user', saveNewUser);
 };
 
-export default { newUserButtonHandlers };
+export default { newUserButtonHandlers, selectAvatar };
