@@ -57,7 +57,7 @@ const eventPageDomStringBuilder = (uid) => {
       domstring += '<th colspan="4">Past Events</th>';
       domstring += '</tr>';
       domstring += '</thead>';
-      domstring += '<tbody>';
+      domstring += '<tbody id="past-events-tbody">';
       eventsToSort.forEach((event) => {
         // reformats the dates to look better on display
         const displayDate = moment(event.dateTime, 'YYYY[-]MM[-]DD[T]HH[:]mm').format('MMMM Do[,] YYYY');
@@ -80,6 +80,9 @@ const eventPageDomStringBuilder = (uid) => {
       domstring += '</tbody>';
       domstring += '</table>';
       util.printToDom('events-list', domstring);
+      if ($('#past-events-tbody')[0].innerHTML === '') {
+        $('#past-events-table').addClass('hide');
+      }
     }).catch(err => console.error('no events to show', err));
 };
 
