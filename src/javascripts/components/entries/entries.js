@@ -29,7 +29,7 @@ const entriesBuilder = () => {
       let domString = '<div id="diary-container" class="container">';
       domString += '<div id="newDiary" class="row d-flex justify-content-center"></div>';
       domString += '<div class="row d-flex justify-content-center">';
-      domString += '<button id="addNewEntryButton" class="btn btn-secondary mt-3 mb-3 col-4 col-md-3 col-lg-2">Add a New Entry</button>';
+      domString += '<button id="addNewEntryButton" class="btn btn-success mt-3 mb-3 col-4 col-md-3 col-lg-2">Add a New Entry</button>';
       domString += '</div>';
       entriesToSort.forEach((entry) => {
         domString += '<div class="row d-flex justify-content-center">';

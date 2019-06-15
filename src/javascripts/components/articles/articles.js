@@ -20,7 +20,7 @@ const articlesBuilder = () => {
     .then((articlesArray) => {
       let domString = '';
       domString += '<div class="articleButtonDiv mt-4 text-center">';
-      domString += '  <button id="news-add-article">Add Article</button>';
+      domString += '  <button class="btn btn-success" id="news-add-article">Add Article</button>';
       domString += '</div>';
       domString += '<div id="news-newArticle" class="container mt-4 hide">';
       domString += '  <div class="row d-flex justify-content-center">';
@@ -82,8 +82,8 @@ const articlesBuilder = () => {
         domString += '      </div>';
         domString += '        <div class="container news-edit-delete">';
         domString += '          <div class="form-group d-flex justify-content-end">';
-        domString += `            <button id="news-edit.${article.id}" class="btn btn-primary news-editArticle mr-3">Edit</button>`;
-        domString += `            <button id="news-delete.${article.id}" class="btn btn-danger news-deleteArticle">Delete</button>`;
+        domString += `            <button id="news-edit.${article.id}" class="btn btn-info news-editArticle mr-3">Edit</button>`;
+        domString += `            <button id="news-delete.${article.id}" class="btn btn-danger news-deleteArticle">X</button>`;
         domString += '          </div>';
         domString += '        </div>';
         domString += '    </div>';
