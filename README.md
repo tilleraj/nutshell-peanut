@@ -36,6 +36,9 @@ This is a personal website designed to keep track of four aspects of your life. 
 
 ![Add Event](./assets/screenshots/add_event.png)
 
+## How to visit site
+* go to "https://nutshell-peanut.firebaseapp.com/"
+
 ## Installation Instructions
 * Clone down this repo
 * At the root of the project, run `npm install`
