@@ -91,6 +91,7 @@ const deleteProfile = (e) => {
 
 // this will build out the body of the editProfileModal
 const buildEditProfileModal = () => {
+  $('.navbar-collapse').collapse('hide');
   const usersId = firebase.auth().currentUser.uid;
   userData.getUserInfoByUserId(usersId)
     .then((userObj) => {

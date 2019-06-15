@@ -15,8 +15,9 @@ const setUserEntries = (newArray) => {
 };
 
 const entriesBuilder = () => {
+  $('.navbar-collapse').collapse('hide');
   // below jquery selectors will be removed after testing branch
-  $('#diary-page').removeClass('hide');
+  // $('#diary-page').removeClass('hide');
   // $('#diary-nav-button').addClass('hide');
   entriesData.getEntries(firebase.auth().currentUser.uid)
     .then((entriesArray) => {

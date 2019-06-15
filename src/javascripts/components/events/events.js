@@ -88,6 +88,7 @@ const eventPageDomStringBuilder = (uid) => {
 
 // builds the base page and button to add events and the modal it calls
 const showEventPage = () => {
+  $('.navbar-collapse').collapse('hide');
   const uId = firebase.auth().currentUser.uid;
   $('#events-page').removeClass('hide');
   eventPageDomStringBuilder(uId);
